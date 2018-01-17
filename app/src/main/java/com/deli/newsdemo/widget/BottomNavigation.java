@@ -7,7 +7,6 @@ import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 
 import com.deli.newsdemo.R;
@@ -16,7 +15,7 @@ import com.deli.newsdemo.R;
  * Created by 01369557 on 2018/1/12.
  */
 
-public class BottomNavigation extends FrameLayout {
+public class BottomNavigation extends LinearLayout {
 
     private LinearLayout mContainer;
 
@@ -39,14 +38,17 @@ public class BottomNavigation extends FrameLayout {
     }
 
     private void init() {
-        setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+        setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
         LayoutInflater inflater = LayoutInflater.from(getContext());
         View parentView = inflater.inflate(R.layout.bottom_navigation_bar_container, this, true);
         mContainer = parentView.findViewById(R.id.bottom_navigation_bar_container);
         mContainer.addView(new NavigationItem(getContext()));
+        mContainer.addView(new NavigationItem(getContext()));
+        mContainer.addView(new NavigationItem(getContext()));
+        mContainer.addView(new NavigationItem(getContext()));
     }
 
-    private class NavigationItem extends FrameLayout {
+    private class NavigationItem extends LinearLayout {
 
         @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
         public NavigationItem(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
@@ -59,10 +61,18 @@ public class BottomNavigation extends FrameLayout {
 
         public NavigationItem(Context context, AttributeSet attrs, int defStyleAttr) {
             super(context, attrs, defStyleAttr);
+            initItem(context);
         }
 
         public NavigationItem(Context context) {
             this(context, null);
+        }
+
+        private void initItem(Context context) {
+            //ScreenUtils.getScreenWidth();
+            setLayoutParams(new LinearLayout.LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT));
+            LayoutInflater itemInflater = LayoutInflater.from(context);
+            itemInflater.inflate(R.layout.bottom_navigation_bar_item, this, true);
         }
     }
 }
