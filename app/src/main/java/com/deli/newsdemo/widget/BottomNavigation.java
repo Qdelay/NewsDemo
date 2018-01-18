@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
 import com.deli.newsdemo.R;
+import com.deli.newsdemo.util.ScreenUtils;
 
 /**
  * Created by 01369557 on 2018/1/12.
@@ -70,7 +71,7 @@ public class BottomNavigation extends LinearLayout {
 
         private void initItem(Context context) {
             //ScreenUtils.getScreenWidth();
-            setLayoutParams(new LinearLayout.LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT));
+            setLayoutParams(new LinearLayout.LayoutParams(ScreenUtils.getScreenWidth() / 4, LayoutParams.WRAP_CONTENT));
             LayoutInflater itemInflater = LayoutInflater.from(context);
             itemInflater.inflate(R.layout.bottom_navigation_bar_item, this, true);
         }
