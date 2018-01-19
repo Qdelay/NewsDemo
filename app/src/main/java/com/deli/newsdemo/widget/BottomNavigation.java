@@ -10,7 +10,8 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
 import com.deli.newsdemo.R;
-import com.deli.newsdemo.util.ScreenUtils;
+
+import java.util.List;
 
 /**
  * Created by 01369557 on 2018/1/12.
@@ -19,6 +20,8 @@ import com.deli.newsdemo.util.ScreenUtils;
 public class BottomNavigation extends LinearLayout {
 
     private LinearLayout mContainer;
+
+    private List<NavigationItem> mNavigationItems;
 
     public BottomNavigation(Context context) {
         this(context, null);
@@ -49,31 +52,14 @@ public class BottomNavigation extends LinearLayout {
         mContainer.addView(new NavigationItem(getContext()));
     }
 
-    private class NavigationItem extends LinearLayout {
+    private BottomNavigation addItem(NavigationItem navigationItem) {
+        mNavigationItems.add(navigationItem);
+        return this;
+    }
 
-        @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
-        public NavigationItem(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
-            super(context, attrs, defStyleAttr, defStyleRes);
-        }
-
-        public NavigationItem(Context context, AttributeSet attrs) {
-            this(context, attrs, 0);
-        }
-
-        public NavigationItem(Context context, AttributeSet attrs, int defStyleAttr) {
-            super(context, attrs, defStyleAttr);
-            initItem(context);
-        }
-
-        public NavigationItem(Context context) {
-            this(context, null);
-        }
-
-        private void initItem(Context context) {
-            //ScreenUtils.getScreenWidth();
-            setLayoutParams(new LinearLayout.LayoutParams(ScreenUtils.getScreenWidth() / 4, LayoutParams.WRAP_CONTENT));
-            LayoutInflater itemInflater = LayoutInflater.from(context);
-            itemInflater.inflate(R.layout.bottom_navigation_bar_item, this, true);
+    private void initilize() {
+        for (NavigationItem item : mNavigationItems) {
+            mContainer.addView(item);
         }
     }
 }
