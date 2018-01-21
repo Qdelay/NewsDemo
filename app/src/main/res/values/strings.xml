@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">NewsDemo</string>
+    <string name="home">首页</string>
+    <string name="mine">我的</string>
+    <string name="video">视频</string>
+
 </resources>
