@@ -23,10 +23,11 @@ public class MainActivity extends BaseFrameActivity<MainPresenter, MainModel> im
         super.initView();
         BottomNavigation bottomNavigation = findViewById(R.id.bottom_navigation);
         bottomNavigation.setItemClickListener(this);
-        bottomNavigation.addItem(new BottomNavigationBean().setIconRes(R.drawable.vector_drawable_home).setActiveRes(R.drawable.vector_drawable_home_active).setItemTitle(R.string.home)).
-                addItem(new BottomNavigationBean().setIconRes(R.drawable.vector_drawable_video).setItemTitle(R.string.video)).
-                addItem(new BottomNavigationBean().setIconRes(R.drawable.vector_drawable_mine).setActiveRes(R.drawable.vector_drawable_mine_active).setItemTitle(R.string.mine)).
+        bottomNavigation.addItem(new BottomNavigationBean(R.drawable.vector_drawable_home, R.drawable.vector_drawable_home_active, R.string.home)).
+                addItem(new BottomNavigationBean(R.drawable.vector_drawable_video, R.string.video)).
+                addItem(new BottomNavigationBean(R.drawable.vector_drawable_mine, R.drawable.vector_drawable_mine_active, R.string.mine)).
                 setActiveColor(R.color.red).
+                setBgColor(R.color.colorPrimary).
                 setPosition(0).
                 initilize();
     }

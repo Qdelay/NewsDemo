@@ -1,9 +1,7 @@
 package com.deli.newsdemo.widget.navigation;
 
 import android.content.Context;
-import android.os.Build;
 import android.support.annotation.ColorRes;
-import android.support.annotation.RequiresApi;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -27,7 +25,6 @@ public class NavigationItem extends LinearLayout {
     private int imageRes;
     private int activeImageRes;
 
-    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     public NavigationItem(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
         super(context, attrs, defStyleAttr, defStyleRes);
     }
@@ -60,7 +57,6 @@ public class NavigationItem extends LinearLayout {
         setLayoutParams(new LinearLayout.LayoutParams(mWidth, LayoutParams.WRAP_CONTENT));
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     public void setActiveColor(@ColorRes int colorRes) {
         SvgUtils.changeSvgColor(getContext(), iv_Tab, colorRes);
         tv_Tab.setTextColor(getResources().getColor(colorRes));

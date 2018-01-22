@@ -14,19 +14,16 @@ public class BottomNavigationBean {
     private int itemTitle;
     private int activeRes;
 
-    public BottomNavigationBean setIconRes(@DrawableRes int iconRes) {
+    public BottomNavigationBean(@DrawableRes int iconRes, @StringRes int itemTitle) {
         this.iconRes = iconRes;
-        return this;
-    }
-
-    public BottomNavigationBean setItemTitle(@StringRes int itemTitle) {
+        this.activeRes = iconRes;
         this.itemTitle = itemTitle;
-        return this;
     }
 
-    public BottomNavigationBean setActiveRes(int activeRes) {
+    public BottomNavigationBean(@DrawableRes int iconRes, @DrawableRes int activeRes, @StringRes int itemTitle) {
+        this.iconRes = iconRes;
         this.activeRes = activeRes;
-        return this;
+        this.itemTitle = itemTitle;
     }
 
     public int getIconRes() {

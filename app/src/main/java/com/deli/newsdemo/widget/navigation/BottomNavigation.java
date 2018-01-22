@@ -1,9 +1,7 @@
 package com.deli.newsdemo.widget.navigation;
 
 import android.content.Context;
-import android.os.Build;
 import android.support.annotation.ColorRes;
-import android.support.annotation.RequiresApi;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -51,7 +49,6 @@ public class BottomNavigation extends LinearLayout {
         init();
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     public BottomNavigation(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
         super(context, attrs, defStyleAttr, defStyleRes);
     }
@@ -73,12 +70,16 @@ public class BottomNavigation extends LinearLayout {
         return this;
     }
 
+    public BottomNavigation setBgColor(@ColorRes int colorRes) {
+        mContainer.setBackgroundColor(getResources().getColor(colorRes));
+        return this;
+    }
+
     public void initilize() {
         int width = BottomNavigationHelper.calculateWidth(mNavigationItems.size());
         for (final BottomNavigationBean bottomNavigationBean : mNavigationItems) {
             final NavigationItem navigationItem = new NavigationItem(getContext());
             navigationItem.setOnClickListener(new OnClickListener() {
-                @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
                 @Override
                 public void onClick(View view) {
                     mOnClickListener.onClick(mNavigationItems.indexOf(bottomNavigationBean));
@@ -99,7 +100,6 @@ public class BottomNavigation extends LinearLayout {
         return this;
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     private void colorExchange(NavigationItem newItem) {
         if (oldClickItem == newItem)
             return;
