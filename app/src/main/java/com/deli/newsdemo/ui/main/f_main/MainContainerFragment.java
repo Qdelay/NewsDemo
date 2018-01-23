@@ -1,10 +1,14 @@
-package com.deli.newsdemo.ui.home;
+package com.deli.newsdemo.ui.main.f_main;
 
 import android.os.Bundle;
 import android.util.Log;
 
 import com.deli.newsdemo.R;
+import com.deli.newsdemo.global.Constants;
 import com.deli.newsdemo.mvpframe.base.BaseFrameFragment;
+import com.deli.newsdemo.ui.main.f_home.HomeFragment;
+import com.deli.newsdemo.ui.main.f_mine.MineFragment;
+import com.deli.newsdemo.ui.main.f_video.VideoFragment;
 import com.deli.newsdemo.widget.navigation.BottomNavigation;
 import com.deli.newsdemo.widget.navigation.BottomNavigationBean;
 
@@ -14,21 +18,30 @@ import com.deli.newsdemo.widget.navigation.BottomNavigationBean;
  * @describe :
  */
 
-public class HomeFragment extends BaseFrameFragment<HomePresenter, HomeModel>
-        implements HomeContract.View, BottomNavigation.onClickListener {
+public class MainContainerFragment extends BaseFrameFragment<MainContainerPresenter, MainContainerModel>
+        implements MainContainerContract.View, BottomNavigation.onClickListener {
 
-    private static final String TAG = "HomeFragment";
+    private static final String TAG = "MainContainerFragment";
+
+    private HomeFragment mHomeFragment;
+
+    private MineFragment mMineFragment;
+
+    private VideoFragment mVideoFragment;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.fragment_home);
+        setContentView(R.layout.fragment_main);
         setFragmentId(R.id.container);
     }
 
     @Override
     public void initData() {
         super.initData();
+        mHomeFragment = new HomeFragment();
+        mMineFragment = new MineFragment();
+        mVideoFragment = new VideoFragment();
     }
 
     @Override
@@ -43,10 +56,28 @@ public class HomeFragment extends BaseFrameFragment<HomePresenter, HomeModel>
                 setBgColor(R.color.colorPrimary).
                 setPosition(0).
                 initilize();
+        toFragemnt(mHomeFragment);
+        setCurrentFragment(mHomeFragment);
     }
 
     @Override
     public void onClick(int position) {
         Log.d(TAG, "onClick: " + position);
+        switch (position) {
+            case Constants.pageNum.Home:
+                toFragemnt(mHomeFragment);
+                setCurrentFragment(mHomeFragment);
+                break;
+            case Constants.pageNum.Mine:
+                toFragemnt(mMineFragment);
+                setCurrentFragment(mMineFragment);
+                break;
+            case Constants.pageNum.Video:
+                toFragemnt(mVideoFragment);
+                setCurrentFragment(mVideoFragment);
+                break;
+            default:
+                break;
+        }
     }
 }

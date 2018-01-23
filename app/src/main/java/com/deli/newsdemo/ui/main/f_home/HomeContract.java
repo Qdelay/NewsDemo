@@ -1,4 +1,4 @@
-package com.deli.newsdemo.ui.home;
+package com.deli.newsdemo.ui.main.f_home;
 
 import com.deli.newsdemo.mvpframe.base.BaseModel;
 import com.deli.newsdemo.mvpframe.base.BasePresenter;

@@ -63,7 +63,7 @@ public class BaseFragment extends Fragment implements BaseFuncIml {
 
     public void toFragemnt(Fragment toFragment) {
         if (mCurrentFragment == null) {
-            ToastUtils.showToast(getActivity(), "mCurrFragment is null");
+            mCurrentFragment = toFragment;
             return;
         }
 

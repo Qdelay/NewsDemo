@@ -92,7 +92,7 @@ public class BottomNavigation extends LinearLayout {
             navigationItem.loadImageRes(navigationItem.getImageRes());
             mContainer.addView(navigationItem);
         }
-        tabItem.get(postion).callOnClick();
+        tabItem.get(postion).performClick();
     }
 
     public BottomNavigation setPosition(int position) {
