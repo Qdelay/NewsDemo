@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
@@ -92,13 +93,13 @@ public class BaseActivity extends AppCompatActivity implements BaseFuncIml, View
 
         if (toFragment.isAdded()) {
             getSupportFragmentManager()
-                    .beginTransaction()
+                    .beginTransaction().setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
                     .hide(mCurrFragment)
                     .show(toFragment)
                     .commit();
         } else {
             getSupportFragmentManager()
-                    .beginTransaction()
+                    .beginTransaction().setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
                     .hide(mCurrFragment)
                     .add(mFragmentId, toFragment)
                     .show(toFragment)

@@ -4,14 +4,19 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import com.deli.newsdemo.util.ToastUtils;
 
 public class BaseFragment extends Fragment implements BaseFuncIml {
     private View mContentView;
 
     private ViewGroup container;
+    private Fragment mCurrentFragment;
+    private int mFragmentId;
 
     @Nullable
     @Override
@@ -50,6 +55,45 @@ public class BaseFragment extends Fragment implements BaseFuncIml {
     @Override
     public void initLoad() {
 
+    }
+
+    public void setFragmentId(int fragmentId) {
+        mFragmentId = fragmentId;
+    }
+
+    public void toFragemnt(Fragment toFragment) {
+        if (mCurrentFragment == null) {
+            ToastUtils.showToast(getActivity(), "mCurrFragment is null");
+            return;
+        }
+
+        if (toFragment == null) {
+            ToastUtils.showToast(getActivity(), "toFragment is null");
+            return;
+        }
+
+        if (toFragment.isAdded()) {
+            getChildFragmentManager()
+                    .beginTransaction().setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
+                    .hide(mCurrentFragment)
+                    .show(toFragment)
+                    .commit();
+        } else {
+            getChildFragmentManager()
+                    .beginTransaction().setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
+                    .hide(mCurrentFragment)
+                    .add(mFragmentId, toFragment)
+                    .show(toFragment)
+                    .commit();
+        }
+    }
+
+    public void setCurrentFragment(Fragment fragment) {
+        mCurrentFragment = fragment;
+    }
+
+    public Fragment getmCurrentFragment() {
+        return mCurrentFragment;
     }
 
     protected void openActivity(Class<? extends BaseActivity> toActivity) {
