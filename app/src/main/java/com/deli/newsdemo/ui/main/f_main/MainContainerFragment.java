@@ -6,9 +6,9 @@ import android.util.Log;
 import com.deli.newsdemo.R;
 import com.deli.newsdemo.global.Constants;
 import com.deli.newsdemo.mvpframe.base.BaseFrameFragment;
-import com.deli.newsdemo.ui.main.f_home.HomeFragment;
-import com.deli.newsdemo.ui.main.f_mine.MineFragment;
-import com.deli.newsdemo.ui.main.f_video.VideoFragment;
+import com.deli.newsdemo.ui.home.HomeFragment;
+import com.deli.newsdemo.ui.mine.MineFragment;
+import com.deli.newsdemo.ui.video.VideoFragment;
 import com.deli.newsdemo.widget.navigation.BottomNavigation;
 import com.deli.newsdemo.widget.navigation.BottomNavigationBean;
 

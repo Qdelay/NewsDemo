@@ -1,4 +1,4 @@
-package com.deli.newsdemo.ui.main.f_mine;
+package com.deli.newsdemo.ui.mine;
 
 /**
  * @auther : qiudeli QQ:364978880

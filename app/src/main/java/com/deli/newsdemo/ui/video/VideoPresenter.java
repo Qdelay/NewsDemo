@@ -1,4 +1,4 @@
-package com.deli.newsdemo.ui.main.f_video;
+package com.deli.newsdemo.ui.video;
 
 /**
  * @auther : qiudeli QQ:364978880

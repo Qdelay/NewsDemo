@@ -1,4 +1,4 @@
-package com.deli.newsdemo.ui.main.f_mine;
+package com.deli.newsdemo.ui.video;
 
 import android.os.Bundle;
 
@@ -11,13 +11,13 @@ import com.deli.newsdemo.mvpframe.base.BaseFrameFragment;
  * @describe :
  */
 
-public class MineFragment extends BaseFrameFragment<MinePresenter, MineModel>
-        implements MineContract.View {
+public class VideoFragment extends BaseFrameFragment<VideoPresenter, VideoModel>
+        implements VideoContract.View {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.fragment_mine);
+        setContentView(R.layout.fragment_video);
         setFragmentId(R.id.container);
     }
 

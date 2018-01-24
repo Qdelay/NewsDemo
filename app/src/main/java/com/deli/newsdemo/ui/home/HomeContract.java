@@ -1,4 +1,4 @@
-package com.deli.newsdemo.ui.main.f_mine;
+package com.deli.newsdemo.ui.home;
 
 import com.deli.newsdemo.mvpframe.base.BaseModel;
 import com.deli.newsdemo.mvpframe.base.BasePresenter;
@@ -10,7 +10,7 @@ import com.deli.newsdemo.mvpframe.base.BaseView;
  * @describe :
  */
 
-public interface MineContract {
+public interface HomeContract {
     interface Model extends BaseModel {
 
     }

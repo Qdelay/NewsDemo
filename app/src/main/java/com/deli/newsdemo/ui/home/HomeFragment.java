@@ -1,4 +1,4 @@
-package com.deli.newsdemo.ui.main.f_video;
+package com.deli.newsdemo.ui.home;
 
 import android.os.Bundle;
 
@@ -11,13 +11,13 @@ import com.deli.newsdemo.mvpframe.base.BaseFrameFragment;
  * @describe :
  */
 
-public class VideoFragment extends BaseFrameFragment<VideoPresenter, VideoModel>
-        implements VideoContract.View {
+public class HomeFragment extends BaseFrameFragment<HomePresenter, HomeModel>
+        implements HomeContract.View {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.fragment_video);
+        setContentView(R.layout.fragment_home);
         setFragmentId(R.id.container);
     }
 

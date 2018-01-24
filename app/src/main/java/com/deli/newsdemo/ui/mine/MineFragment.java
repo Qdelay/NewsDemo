@@ -1,9 +1,10 @@
-package com.deli.newsdemo.ui.main.f_home;
+package com.deli.newsdemo.ui.mine;
 
 import android.os.Bundle;
 
 import com.deli.newsdemo.R;
 import com.deli.newsdemo.mvpframe.base.BaseFrameFragment;
+import com.deli.newsdemo.ui.main.MainActivity;
 
 /**
  * @auther : qiudeli QQ:364978880
@@ -11,19 +12,26 @@ import com.deli.newsdemo.mvpframe.base.BaseFrameFragment;
  * @describe :
  */
 
-public class HomeFragment extends BaseFrameFragment<HomePresenter, HomeModel>
-        implements HomeContract.View {
+public class MineFragment extends BaseFrameFragment<MinePresenter, MineModel>
+        implements MineContract.View {
+
+    public static final String TAG = "MineFragment";
+    MainActivity mCallback;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.fragment_home);
+        setContentView(R.layout.fragment_mine);
         setFragmentId(R.id.container);
     }
 
     @Override
     public void initData() {
         super.initData();
+        mCallback = (MainActivity) getActivity();
+        Bundle bundle = new Bundle();
+        bundle.putString(TAG, "hello im minefragment");
+        mCallback.onMessage(bundle);
     }
 
     @Override

@@ -1,4 +1,4 @@
-package com.deli.newsdemo.ui.main.f_home;
+package com.deli.newsdemo.ui.video;
 
 import com.deli.newsdemo.mvpframe.base.BaseModel;
 import com.deli.newsdemo.mvpframe.base.BasePresenter;
@@ -10,7 +10,7 @@ import com.deli.newsdemo.mvpframe.base.BaseView;
  * @describe :
  */
 
-public interface HomeContract {
+public interface VideoContract {
     interface Model extends BaseModel {
 
     }
