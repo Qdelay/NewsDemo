@@ -1,4 +1,4 @@
-package com.deli.newsdemo.ui.mine;
+package com.deli.newsdemo.ui.newsdetails;
 
 import android.os.Bundle;
 import android.view.View;
@@ -18,40 +18,53 @@ import butterknife.Unbinder;
  * @describe :
  */
 
-public class MineFragment extends BaseFrameFragment<MinePresenter, MineModel>
-        implements MineContract.View {
+public class NewsDetailsFragment extends BaseFrameFragment<NewsDetailsPresenter, NewsDetailsModel>
+        implements NewsDetailsContract.View {
 
-    @BindView(R.id.btn_to_details)
-    Button btn_to_details;
+    @BindView(R.id.btn_back)
+    Button btn_back;
+    @BindView(R.id.close_all)
+    Button btn_close_all;
 
-    public static final String TAG = "MineFragment";
+    public static final String TAG = "NewsDetailsFragment";
+
     private MainActivity mCallback;
+
     private Unbinder unbinder;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.fragment_mine);
+        setContentView(R.layout.fragment_news_details);
         unbinder = ButterKnife.bind(this, getContentView());
         setFragmentId(R.id.container);
+
     }
 
     @Override
     public void initData() {
         super.initData();
-
     }
 
     @Override
     public void initView() {
         super.initView();
-        btn_to_details.setOnClickListener(new View.OnClickListener() {
+        btn_back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                mCallback = (MainActivity) getActivity();
                 Bundle bundle = new Bundle();
-                bundle.putString(TAG, "hello im minefragment");
+                bundle.putString(TAG, "im details");
+                mCallback = (MainActivity) getActivity();
                 mCallback.onMessage(bundle, TAG);
+            }
+        });
+        btn_close_all.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Bundle bundle = new Bundle();
+                bundle.putString(TAG, "im details");
+                mCallback = (MainActivity) getActivity();
+                mCallback.onMessage(bundle, "back");
             }
         });
     }
@@ -63,4 +76,5 @@ public class MineFragment extends BaseFrameFragment<MinePresenter, MineModel>
             unbinder.unbind();
         }
     }
+
 }

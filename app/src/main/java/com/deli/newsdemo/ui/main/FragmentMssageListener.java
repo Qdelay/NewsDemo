@@ -7,5 +7,5 @@ import android.os.Bundle;
  */
 
 public interface FragmentMssageListener {
-    void onMessage(Bundle bundle);
+    void onMessage(Bundle bundle, String tag);
 }

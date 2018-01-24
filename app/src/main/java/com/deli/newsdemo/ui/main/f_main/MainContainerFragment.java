@@ -21,7 +21,7 @@ import com.deli.newsdemo.widget.navigation.BottomNavigationBean;
 public class MainContainerFragment extends BaseFrameFragment<MainContainerPresenter, MainContainerModel>
         implements MainContainerContract.View, BottomNavigation.onClickListener {
 
-    private static final String TAG = "MainContainerFragment";
+    public static final String TAG = "MainContainerFragment";
 
     private HomeFragment mHomeFragment;
 

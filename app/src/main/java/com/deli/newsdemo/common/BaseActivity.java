@@ -4,12 +4,16 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 
+import com.deli.newsdemo.R;
+import com.deli.newsdemo.ui.main.f_main.MainContainerFragment;
 import com.deli.newsdemo.util.ToastUtils;
+
+import static android.support.v4.app.FragmentManager.POP_BACK_STACK_INCLUSIVE;
 
 /**
  * Created by yiyi on 2016/12/26.
@@ -90,21 +94,31 @@ public class BaseActivity extends AppCompatActivity implements BaseFuncIml, View
             ToastUtils.showToast(this, "toFragment is null");
             return;
         }
+        if (!toFragment.isAdded()) {
+            if (toFragment.getClass().getName().contains(MainContainerFragment.TAG)) {
+                getSupportFragmentManager()
+                        .beginTransaction()
+                        .add(mFragmentId, toFragment)
+                        .show(toFragment)
+                        .commit();
+            } else {
+                getSupportFragmentManager()
+                        .beginTransaction().setCustomAnimations(R.animator.fragment_slide_left_enter,
+                        R.animator.fragment_slide_left_exit,
+                        R.animator.fragment_slide_left_enter,
+                        R.animator.fragment_slide_right_exit)
+                        .add(mFragmentId, toFragment)
+                        .addToBackStack(null)
+                        .show(toFragment)
+                        .commit();
+            }
 
-        if (toFragment.isAdded()) {
-            getSupportFragmentManager()
-                    .beginTransaction().setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
-                    .hide(mCurrFragment)
-                    .show(toFragment)
-                    .commit();
-        } else {
-            getSupportFragmentManager()
-                    .beginTransaction().setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
-                    .hide(mCurrFragment)
-                    .add(mFragmentId, toFragment)
-                    .show(toFragment)
-                    .commit();
         }
+        Log.d(TAG, "toFragment: " + getSupportFragmentManager().getBackStackEntryCount());
+    }
+
+    protected void backToFragment() {
+        getSupportFragmentManager().popBackStackImmediate(null, POP_BACK_STACK_INCLUSIVE);
     }
 
     protected void openActivity(Class<? extends BaseActivity> toActivity) {
