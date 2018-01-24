@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -112,7 +113,12 @@ public class BaseActivity extends AppCompatActivity implements BaseFuncIml, View
                         .show(toFragment)
                         .commit();
             }
-
+        } else {
+            getSupportFragmentManager()
+                    .beginTransaction().setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
+                    .hide(mCurrFragment)
+                    .show(toFragment)
+                    .commit();
         }
         Log.d(TAG, "toFragment: " + getSupportFragmentManager().getBackStackEntryCount());
     }
