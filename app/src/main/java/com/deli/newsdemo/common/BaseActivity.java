@@ -7,7 +7,6 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.View;
 
 import com.deli.newsdemo.R;
@@ -85,7 +84,7 @@ public class BaseActivity extends AppCompatActivity implements BaseFuncIml, View
         this.mCurrFragment = currFragment;
     }
 
-    protected void toFragment(Fragment toFragment) {
+    public void toFragment(Fragment toFragment) {
         if (mCurrFragment == null) {
             ToastUtils.showToast(this, "mCurrFragment is null");
             return;
@@ -106,7 +105,7 @@ public class BaseActivity extends AppCompatActivity implements BaseFuncIml, View
                 getSupportFragmentManager()
                         .beginTransaction().setCustomAnimations(R.animator.fragment_slide_left_enter,
                         R.animator.fragment_slide_left_exit,
-                        R.animator.fragment_slide_left_enter,
+                        R.animator.fragment_slide_right_enter,
                         R.animator.fragment_slide_right_exit)
                         .add(mFragmentId, toFragment)
                         .addToBackStack(null)
@@ -120,10 +119,9 @@ public class BaseActivity extends AppCompatActivity implements BaseFuncIml, View
                     .show(toFragment)
                     .commit();
         }
-        Log.d(TAG, "toFragment: " + getSupportFragmentManager().getBackStackEntryCount());
     }
 
-    protected void backToFragment() {
+    public void backToFragment() {
         getSupportFragmentManager().popBackStackImmediate(null, POP_BACK_STACK_INCLUSIVE);
     }
 

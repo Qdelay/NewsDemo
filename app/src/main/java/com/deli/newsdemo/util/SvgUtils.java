@@ -12,7 +12,7 @@ import android.widget.ImageView;
  * SVG帮助类
  */
 
-public class SvgUtils {
+public final class SvgUtils {
 
     public static void changeSvgColor(Context context, ImageView imageView, @ColorRes int ColorRes) {
         VectorDrawable drawable = (VectorDrawable) (imageView.getDrawable());

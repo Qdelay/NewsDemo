@@ -29,6 +29,8 @@ public class MainContainerFragment extends BaseFrameFragment<MainContainerPresen
 
     private VideoFragment mVideoFragment;
 
+    private int oldPosition = Constants.pageNum.Home;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -63,6 +65,9 @@ public class MainContainerFragment extends BaseFrameFragment<MainContainerPresen
     @Override
     public void onClick(int position) {
         Log.d(TAG, "onClick: " + position);
+        if (oldPosition == position) {
+            return;
+        }
         switch (position) {
             case Constants.pageNum.Home:
                 toFragemnt(mHomeFragment);
@@ -79,5 +84,6 @@ public class MainContainerFragment extends BaseFrameFragment<MainContainerPresen
             default:
                 break;
         }
+        oldPosition = position;
     }
 }

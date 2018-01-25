@@ -33,7 +33,6 @@ public class BottomNavigation extends LinearLayout {
 
     private List<NavigationItem> tabItem = new ArrayList<>();
 
-
     private int postion = 0;
 
     public BottomNavigation(Context context) {
@@ -82,7 +81,8 @@ public class BottomNavigation extends LinearLayout {
             navigationItem.setOnClickListener(new OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    mOnClickListener.onClick(mNavigationItems.indexOf(bottomNavigationBean));
+                    postion = mNavigationItems.indexOf(bottomNavigationBean);
+                    mOnClickListener.onClick(postion);
                     colorExchange(navigationItem);
                 }
             });
@@ -98,6 +98,10 @@ public class BottomNavigation extends LinearLayout {
     public BottomNavigation setPosition(int position) {
         this.postion = position;
         return this;
+    }
+
+    public int getPostion() {
+        return postion;
     }
 
     private void colorExchange(NavigationItem newItem) {

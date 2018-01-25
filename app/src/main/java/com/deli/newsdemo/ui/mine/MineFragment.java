@@ -7,6 +7,8 @@ import android.widget.Button;
 import com.deli.newsdemo.R;
 import com.deli.newsdemo.mvpframe.base.BaseFrameFragment;
 import com.deli.newsdemo.ui.main.MainActivity;
+import com.deli.newsdemo.ui.newsdetails.NewsDetailsFragment;
+import com.deli.newsdemo.widget.button.NoDoubleClickListener;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -45,13 +47,13 @@ public class MineFragment extends BaseFrameFragment<MinePresenter, MineModel>
     @Override
     public void initView() {
         super.initView();
-        btn_to_details.setOnClickListener(new View.OnClickListener() {
+        btn_to_details.setOnClickListener(new NoDoubleClickListener() {
             @Override
-            public void onClick(View view) {
+            protected void onNoDoubleClick(View v) {
                 mCallback = (MainActivity) getActivity();
-                Bundle bundle = new Bundle();
-                bundle.putString(TAG, "hello im minefragment");
-                mCallback.onMessage(bundle, TAG);
+                NewsDetailsFragment mNewsDetailsFragment = new NewsDetailsFragment();
+                mCallback.toFragment(mNewsDetailsFragment);
+                mCallback.setCurrFragment(mNewsDetailsFragment);
             }
         });
     }

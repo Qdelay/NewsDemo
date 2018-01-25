@@ -7,6 +7,7 @@ import android.widget.Button;
 import com.deli.newsdemo.R;
 import com.deli.newsdemo.mvpframe.base.BaseFrameFragment;
 import com.deli.newsdemo.ui.main.MainActivity;
+import com.deli.newsdemo.widget.button.NoDoubleClickListener;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -49,22 +50,20 @@ public class NewsDetailsFragment extends BaseFrameFragment<NewsDetailsPresenter,
     @Override
     public void initView() {
         super.initView();
-        btn_back.setOnClickListener(new View.OnClickListener() {
+        btn_back.setOnClickListener(new NoDoubleClickListener() {
             @Override
-            public void onClick(View view) {
-                Bundle bundle = new Bundle();
-                bundle.putString(TAG, "im details");
+            protected void onNoDoubleClick(View v) {
                 mCallback = (MainActivity) getActivity();
-                mCallback.onMessage(bundle, TAG);
+                NewsDetailsFragment mNewsDetailsFragment = new NewsDetailsFragment();
+                mCallback.toFragment(mNewsDetailsFragment);
+                mCallback.setCurrFragment(mNewsDetailsFragment);
             }
         });
-        btn_close_all.setOnClickListener(new View.OnClickListener() {
+        btn_close_all.setOnClickListener(new NoDoubleClickListener() {
             @Override
-            public void onClick(View view) {
-                Bundle bundle = new Bundle();
-                bundle.putString(TAG, "im details");
+            protected void onNoDoubleClick(View v) {
                 mCallback = (MainActivity) getActivity();
-                mCallback.onMessage(bundle, "back");
+                mCallback.backToFragment();
             }
         });
     }
@@ -76,5 +75,4 @@ public class NewsDetailsFragment extends BaseFrameFragment<NewsDetailsPresenter,
             unbinder.unbind();
         }
     }
-
 }
