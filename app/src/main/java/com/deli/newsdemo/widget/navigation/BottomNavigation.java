@@ -53,7 +53,7 @@ public class BottomNavigation extends LinearLayout {
     }
 
     private void init() {
-        setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+        setLayoutParams(new LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
         LayoutInflater inflater = LayoutInflater.from(getContext());
         View parentView = inflater.inflate(R.layout.bottom_navigation_bar_container, this, true);
         mContainer = parentView.findViewById(R.id.bottom_navigation_bar_container);
