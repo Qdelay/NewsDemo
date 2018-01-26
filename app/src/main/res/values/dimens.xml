@@ -5,4 +5,5 @@
     <dimen name="tv_navigation_margin">5dp</dimen>
     <dimen name="head_banner">56dp</dimen>
     <dimen name="bottom_navigation">56dp</dimen>
+    <dimen name="banner_text_size">20sp</dimen>
 </resources>

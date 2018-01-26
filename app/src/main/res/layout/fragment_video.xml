@@ -2,17 +2,24 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/colorShadow">
 
+    <include
+        android:id="@+id/head_banner"
+        layout="@layout/head_banner" />
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_below="@+id/head_banner"
         android:id="@+id/container">
 
+        <com.airbnb.lottie.LottieAnimationView
+            android:layout_gravity="center"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:lottie_fileName="loader.json"
+            app:lottie_loop="true"
+            app:lottie_autoPlay="true" />
     </FrameLayout>
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="Video" />
 </RelativeLayout>

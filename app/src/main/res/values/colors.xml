@@ -6,4 +6,5 @@
     <color name="colorShadow">#c6c6c6</color>
     <color name="green">#a2de42</color>
     <color name="red">#e43125</color>
+    <color name="translucent">#00000000</color>
 </resources>

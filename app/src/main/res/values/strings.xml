@@ -3,5 +3,6 @@
     <string name="home">首页</string>
     <string name="mine">我的</string>
     <string name="video">视频</string>
+    <string name="details">详情</string>
 
 </resources>

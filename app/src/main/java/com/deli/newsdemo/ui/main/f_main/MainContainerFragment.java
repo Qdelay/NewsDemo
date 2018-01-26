@@ -58,8 +58,8 @@ public class MainContainerFragment extends BaseFrameFragment<MainContainerPresen
                 setBgColor(R.color.colorPrimary).
                 setPosition(0).
                 initilize();
-        toFragemnt(mHomeFragment);
         setCurrentFragment(mHomeFragment);
+        toFragemnt(mHomeFragment);
     }
 
     @Override

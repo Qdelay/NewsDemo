@@ -10,12 +10,13 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.deli.newsdemo.util.ToastUtils;
+import com.deli.newsdemo.widget.header.HeadBanner;
 
 public class BaseFragment extends Fragment implements BaseFuncIml {
     private View mContentView;
-
     private ViewGroup container;
     private Fragment mCurrentFragment;
+    private HeadBanner mHeadBanner;
     private int mFragmentId;
 
     @Nullable

@@ -1,13 +1,11 @@
 package com.deli.newsdemo.ui.newsdetails;
 
 import android.os.Bundle;
-import android.view.View;
-import android.widget.Button;
 
 import com.deli.newsdemo.R;
 import com.deli.newsdemo.mvpframe.base.BaseFrameFragment;
 import com.deli.newsdemo.ui.main.MainActivity;
-import com.deli.newsdemo.widget.button.NoDoubleClickListener;
+import com.deli.newsdemo.widget.header.HeadBanner;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -22,10 +20,8 @@ import butterknife.Unbinder;
 public class NewsDetailsFragment extends BaseFrameFragment<NewsDetailsPresenter, NewsDetailsModel>
         implements NewsDetailsContract.View {
 
-    @BindView(R.id.btn_back)
-    Button btn_back;
-    @BindView(R.id.close_all)
-    Button btn_close_all;
+    @BindView(R.id.head_banner)
+    HeadBanner headBanner;
 
     public static final String TAG = "NewsDetailsFragment";
 
@@ -50,18 +46,17 @@ public class NewsDetailsFragment extends BaseFrameFragment<NewsDetailsPresenter,
     @Override
     public void initView() {
         super.initView();
-        btn_back.setOnClickListener(new NoDoubleClickListener() {
+        headBanner.setBannerButtonListener(new HeadBanner.BannerBtnClick() {
             @Override
-            protected void onNoDoubleClick(View v) {
+            public void onLeftBtnClick() {
                 mCallback = (MainActivity) getActivity();
                 NewsDetailsFragment mNewsDetailsFragment = new NewsDetailsFragment();
                 mCallback.toFragment(mNewsDetailsFragment);
                 mCallback.setCurrFragment(mNewsDetailsFragment);
             }
-        });
-        btn_close_all.setOnClickListener(new NoDoubleClickListener() {
+
             @Override
-            protected void onNoDoubleClick(View v) {
+            public void onRightBtnClick() {
                 mCallback = (MainActivity) getActivity();
                 mCallback.backToFragment();
             }

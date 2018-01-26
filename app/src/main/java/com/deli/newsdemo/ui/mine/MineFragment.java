@@ -9,6 +9,7 @@ import com.deli.newsdemo.mvpframe.base.BaseFrameFragment;
 import com.deli.newsdemo.ui.main.MainActivity;
 import com.deli.newsdemo.ui.newsdetails.NewsDetailsFragment;
 import com.deli.newsdemo.widget.button.NoDoubleClickListener;
+import com.deli.newsdemo.widget.header.HeadBanner;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -25,6 +26,8 @@ public class MineFragment extends BaseFrameFragment<MinePresenter, MineModel>
 
     @BindView(R.id.btn_to_details)
     Button btn_to_details;
+    @BindView(R.id.head_banner)
+    HeadBanner mHeadBanner;
 
     public static final String TAG = "MineFragment";
     private MainActivity mCallback;
@@ -56,6 +59,9 @@ public class MineFragment extends BaseFrameFragment<MinePresenter, MineModel>
                 mCallback.setCurrFragment(mNewsDetailsFragment);
             }
         });
+        mHeadBanner.getBtn_left().setVisibility(View.GONE);
+        mHeadBanner.getBtn_right().setVisibility(View.GONE);
+        mHeadBanner.setTitle(getString(R.string.mine));
     }
 
     @Override
