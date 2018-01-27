@@ -2,22 +2,25 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/colorShadow">
-
     <include
         android:id="@+id/head_banner"
         layout="@layout/head_banner" />
-    <FrameLayout
+
+    <android.support.design.widget.TabLayout
+        android:id="@+id/tl_home"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@+id/head_banner"
-        android:id="@+id/container">
+        android:layout_height="wrap_content"
+        android:layout_below="@id/head_banner"
+        app:tabMode="scrollable"
+        app:tabTextColor="@color/red"
+        android:background="@color/colorPrimary" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="home" />
-    </FrameLayout>
-
+    <android.support.v4.view.ViewPager
+        android:id="@+id/vp_home"
+        android:layout_below="@id/tl_home"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"></android.support.v4.view.ViewPager>
 
 </RelativeLayout>

@@ -1,11 +1,19 @@
 package com.deli.newsdemo.ui.home;
 
 import android.os.Bundle;
+import android.support.design.widget.TabLayout;
+import android.support.v4.app.Fragment;
+import android.support.v4.view.ViewPager;
 import android.view.View;
 
 import com.deli.newsdemo.R;
+import com.deli.newsdemo.adapter.ViewPagerFragmentAdapter;
 import com.deli.newsdemo.mvpframe.base.BaseFrameFragment;
+import com.deli.newsdemo.ui.home.type.NewsTypeFragment;
 import com.deli.newsdemo.widget.header.HeadBanner;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -21,15 +29,22 @@ public class HomeFragment extends BaseFrameFragment<HomePresenter, HomeModel>
         implements HomeContract.View {
     @BindView(R.id.head_banner)
     HeadBanner mHeadBanner;
+    @BindView(R.id.tl_home)
+    TabLayout tl_home;
+    @BindView(R.id.vp_home)
+    ViewPager vp_home;
 
     private Unbinder unbinder;
+
+    private List<Fragment> mFragments;
+
+    private ViewPagerFragmentAdapter mViewPagerFragmentAdapter;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.fragment_home);
         unbinder = ButterKnife.bind(this, getContentView());
-        setFragmentId(R.id.container);
     }
 
     @Override
@@ -43,6 +58,19 @@ public class HomeFragment extends BaseFrameFragment<HomePresenter, HomeModel>
         mHeadBanner.setTitle(getString(R.string.home));
         mHeadBanner.getBtn_left().setVisibility(View.GONE);
         mHeadBanner.getBtn_right().setVisibility(View.GONE);
+        mFragments = new ArrayList<>();
+        mFragments.add(new NewsTypeFragment());
+        mFragments.add(new NewsTypeFragment());
+        mFragments.add(new NewsTypeFragment());
+        mFragments.add(new NewsTypeFragment());
+        mFragments.add(new NewsTypeFragment());
+        mFragments.add(new NewsTypeFragment());
+        mFragments.add(new NewsTypeFragment());
+        mFragments.add(new NewsTypeFragment());
+        mFragments.add(new NewsTypeFragment());
+        mViewPagerFragmentAdapter = new ViewPagerFragmentAdapter(getChildFragmentManager(), mFragments);
+        vp_home.setAdapter(mViewPagerFragmentAdapter);
+        tl_home.setupWithViewPager(vp_home);
     }
 
     @Override
