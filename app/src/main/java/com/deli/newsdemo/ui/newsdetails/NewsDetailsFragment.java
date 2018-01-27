@@ -1,6 +1,7 @@
 package com.deli.newsdemo.ui.newsdetails;
 
 import android.os.Bundle;
+import android.view.View;
 
 import com.deli.newsdemo.R;
 import com.deli.newsdemo.mvpframe.base.BaseFrameFragment;
@@ -46,10 +47,11 @@ public class NewsDetailsFragment extends BaseFrameFragment<NewsDetailsPresenter,
     @Override
     public void initView() {
         super.initView();
+        mCallback = (MainActivity) getActivity();
+        mCallback.getLoading().setVisibility(View.VISIBLE);
         headBanner.setBannerButtonListener(new HeadBanner.BannerBtnClick() {
             @Override
             public void onLeftBtnClick() {
-                mCallback = (MainActivity) getActivity();
                 NewsDetailsFragment mNewsDetailsFragment = new NewsDetailsFragment();
                 mCallback.toFragment(mNewsDetailsFragment);
                 mCallback.setCurrFragment(mNewsDetailsFragment);
@@ -66,6 +68,7 @@ public class NewsDetailsFragment extends BaseFrameFragment<NewsDetailsPresenter,
     @Override
     public void onDestroyView() {
         super.onDestroyView();
+        mCallback.getLoading().setVisibility(View.GONE);
         if (unbinder != null) {
             unbinder.unbind();
         }

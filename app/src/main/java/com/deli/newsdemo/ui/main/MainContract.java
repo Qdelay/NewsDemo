@@ -1,5 +1,6 @@
 package com.deli.newsdemo.ui.main;
 
+import com.airbnb.lottie.LottieAnimationView;
 import com.deli.newsdemo.mvpframe.base.BaseModel;
 import com.deli.newsdemo.mvpframe.base.BasePresenter;
 import com.deli.newsdemo.mvpframe.base.BaseView;
@@ -13,6 +14,7 @@ public interface MainContract {
     }
 
     interface View extends BaseView {
+        LottieAnimationView getLoading();
     }
 
     abstract class Presenter extends BasePresenter<Model, View> {

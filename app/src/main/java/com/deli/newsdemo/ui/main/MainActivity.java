@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.KeyEvent;
 
+import com.airbnb.lottie.LottieAnimationView;
 import com.deli.newsdemo.R;
 import com.deli.newsdemo.mvpframe.base.BaseFrameActivity;
 import com.deli.newsdemo.ui.main.f_main.MainContainerFragment;
@@ -11,12 +12,18 @@ import com.deli.newsdemo.ui.mine.MineFragment;
 import com.deli.newsdemo.ui.newsdetails.NewsDetailsFragment;
 import com.deli.newsdemo.util.ToastUtils;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.Unbinder;
+
 public class MainActivity extends BaseFrameActivity<MainPresenter, MainModel> implements MainContract.View, FragmentMssageListener {
+    @BindView(R.id.loading)
+    LottieAnimationView loading;
 
     private static final String TAG = "MainActivity";
-
     private MainContainerFragment mMainFragment;
     private long lastTime = 0;
+    private Unbinder unbinder;
 
     @Override
     public void onMessage(Bundle bundle, String tag) {
@@ -35,9 +42,15 @@ public class MainActivity extends BaseFrameActivity<MainPresenter, MainModel> im
     }
 
     @Override
+    public LottieAnimationView getLoading() {
+        return loading;
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        unbinder = ButterKnife.bind(this);
         setFragmentId(R.id.container);
     }
 
@@ -68,5 +81,13 @@ public class MainActivity extends BaseFrameActivity<MainPresenter, MainModel> im
             return true;
         }
         return super.onKeyDown(keyCode, event);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (unbinder != null) {
+            unbinder.unbind();
+        }
     }
 }

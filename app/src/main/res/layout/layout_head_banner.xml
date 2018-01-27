@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout android:layout_width="match_parent"
     android:layout_height="@dimen/head_banner"
-    android:background="@color/colorShadow"
+    android:background="@color/red"
     xmlns:android="http://schemas.android.com/apk/res/android">
 
     <LinearLayout
@@ -17,6 +17,7 @@
             android:layout_width="30dp"
             android:layout_height="match_parent"
             android:src="@drawable/vector_drawable_back"
+            android:tint="@color/colorPrimary"
             android:layout_margin="@dimen/tv_navigation_margin" />
     </LinearLayout>
 
@@ -33,7 +34,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:textColor="@color/colorPrimaryDark"
+            android:textColor="@color/colorPrimary"
             android:textSize="@dimen/banner_text_size"
             android:text="@string/details" />
     </LinearLayout>
@@ -51,6 +52,7 @@
             android:layout_width="30dp"
             android:layout_height="match_parent"
             android:src="@drawable/vector_drawable_comment"
+            android:tint="@color/colorPrimary"
             android:layout_margin="@dimen/tv_navigation_margin" />
     </LinearLayout>
 </RelativeLayout>

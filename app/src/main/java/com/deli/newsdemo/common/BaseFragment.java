@@ -18,6 +18,7 @@ public class BaseFragment extends Fragment implements BaseFuncIml {
     private Fragment mCurrentFragment;
     private HeadBanner mHeadBanner;
     private int mFragmentId;
+    private static final String TAG = "BaseFragment";
 
     @Nullable
     @Override
@@ -108,5 +109,4 @@ public class BaseFragment extends Fragment implements BaseFuncIml {
         }
         startActivity(intent);
     }
-
 }
