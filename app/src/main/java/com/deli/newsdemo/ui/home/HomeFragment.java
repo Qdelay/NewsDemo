@@ -1,7 +1,6 @@
 package com.deli.newsdemo.ui.home;
 
 import android.os.Bundle;
-import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.view.View;
@@ -11,6 +10,7 @@ import com.deli.newsdemo.adapter.ViewPagerFragmentAdapter;
 import com.deli.newsdemo.mvpframe.base.BaseFrameFragment;
 import com.deli.newsdemo.ui.home.type.NewsTypeFragment;
 import com.deli.newsdemo.widget.header.HeadBanner;
+import com.deli.newsdemo.widget.tablayout.TabLayout;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -35,6 +35,8 @@ public class HomeFragment extends BaseFrameFragment<HomePresenter, HomeModel>
     ViewPager vp_home;
 
     private Unbinder unbinder;
+
+    private int oldPosition = 0;
 
     private List<Fragment> mFragments;
 
@@ -71,6 +73,29 @@ public class HomeFragment extends BaseFrameFragment<HomePresenter, HomeModel>
         mViewPagerFragmentAdapter = new ViewPagerFragmentAdapter(getChildFragmentManager(), mFragments);
         vp_home.setAdapter(mViewPagerFragmentAdapter);
         tl_home.setupWithViewPager(vp_home);
+//        tl_home.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+//            @Override
+//            public void onTabSelected(TabLayout.Tab tab) {
+//                if (Math.abs(tab.getPosition() - oldPosition) != 1) {
+//                    vp_home.setCurrentItem(tab.getPosition(), false);
+//                    vp_home.setCurrentItem(tab.getPosition());
+//                } else {
+//                    vp_home.setCurrentItem(tab.getPosition(),true);
+//                }
+//                oldPosition = tab.getPosition();
+//
+//            }
+//
+//            @Override
+//            public void onTabUnselected(TabLayout.Tab tab) {
+//
+//            }
+//
+//            @Override
+//            public void onTabReselected(TabLayout.Tab tab) {
+//
+//            }
+//        });
     }
 
     @Override
