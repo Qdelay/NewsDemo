@@ -73,29 +73,26 @@ public class HomeFragment extends BaseFrameFragment<HomePresenter, HomeModel>
         mViewPagerFragmentAdapter = new ViewPagerFragmentAdapter(getChildFragmentManager(), mFragments);
         vp_home.setAdapter(mViewPagerFragmentAdapter);
         tl_home.setupWithViewPager(vp_home);
-//        tl_home.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
-//            @Override
-//            public void onTabSelected(TabLayout.Tab tab) {
-//                if (Math.abs(tab.getPosition() - oldPosition) != 1) {
-//                    vp_home.setCurrentItem(tab.getPosition(), false);
+        tl_home.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+                vp_home.setCurrentItem(tab.getPosition(), false);
 //                    vp_home.setCurrentItem(tab.getPosition());
-//                } else {
-//                    vp_home.setCurrentItem(tab.getPosition(),true);
-//                }
-//                oldPosition = tab.getPosition();
-//
-//            }
-//
-//            @Override
-//            public void onTabUnselected(TabLayout.Tab tab) {
-//
-//            }
-//
-//            @Override
-//            public void onTabReselected(TabLayout.Tab tab) {
-//
-//            }
-//        });
+
+                oldPosition = tab.getPosition();
+
+            }
+
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
+
+            }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
+
+            }
+        });
     }
 
     @Override

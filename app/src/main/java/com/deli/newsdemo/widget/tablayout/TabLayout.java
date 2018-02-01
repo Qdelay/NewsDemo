@@ -2125,6 +2125,7 @@ public class TabLayout extends HorizontalScrollView {
         @Override
         public void onPageScrolled(final int position, final float positionOffset,
                                    final int positionOffsetPixels) {
+            Log.d("onPageScrolled", "onPageScrolled: " + position + "--" + positionOffset + "--" + position + "--" + positionOffsetPixels);
             final TabLayout tabLayout = mTabLayoutRef.get();
             if (tabLayout != null) {
                 // Only update the text selection if we're not settling, or we are settling after
@@ -2136,13 +2137,16 @@ public class TabLayout extends HorizontalScrollView {
                 // onPageSelected() instead.
                 final boolean updateIndicator = !(mScrollState == SCROLL_STATE_SETTLING
                         && mPreviousScrollState == SCROLL_STATE_IDLE);
-                tabLayout.setScrollPosition(position, positionOffset, updateText, updateIndicator);
+//                tabLayout.setScrollPosition(position, positionOffset, updateText, updateIndicator);
             }
         }
 
         @Override
         public void onPageSelected(final int position) {
+            Log.d("onPageSelected", "onPageSelected: " + position);
             final TabLayout tabLayout = mTabLayoutRef.get();
+            tabLayout.selectTab(tabLayout.getTabAt(position), true);
+
             if (tabLayout != null && tabLayout.getSelectedTabPosition() != position
                     && position < tabLayout.getTabCount()) {
                 // Select the tab, only updating the indicator if we're not being dragged/settled
@@ -2150,7 +2154,6 @@ public class TabLayout extends HorizontalScrollView {
                 final boolean updateIndicator = mScrollState == SCROLL_STATE_IDLE
                         || (mScrollState == SCROLL_STATE_SETTLING
                         && mPreviousScrollState == SCROLL_STATE_IDLE);
-                tabLayout.selectTab(tabLayout.getTabAt(position), updateIndicator);
             }
         }
 
