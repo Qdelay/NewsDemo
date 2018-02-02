@@ -2111,6 +2111,9 @@ public class TabLayout extends HorizontalScrollView {
         private final WeakReference<TabLayout> mTabLayoutRef;
         private int mPreviousScrollState;
         private int mScrollState;
+        private int mOldPosition = 0;
+        private int mNewPosition = 0;
+        private int scrollPosition = 0;
 
         public TabLayoutOnPageChangeListener(TabLayout tabLayout) {
             mTabLayoutRef = new WeakReference<>(tabLayout);
@@ -2118,6 +2121,7 @@ public class TabLayout extends HorizontalScrollView {
 
         @Override
         public void onPageScrollStateChanged(final int state) {
+            Log.d("onPageScrollStateChan", "onPageScrollStateChanged: " + state);
             mPreviousScrollState = mScrollState;
             mScrollState = state;
         }
@@ -2137,15 +2141,25 @@ public class TabLayout extends HorizontalScrollView {
                 // onPageSelected() instead.
                 final boolean updateIndicator = !(mScrollState == SCROLL_STATE_SETTLING
                         && mPreviousScrollState == SCROLL_STATE_IDLE);
-//                tabLayout.setScrollPosition(position, positionOffset, updateText, updateIndicator);
+                if (positionOffset != 0) {
+                    tabLayout.setScrollPosition(position, positionOffset, updateText, updateIndicator);
+                    if (scrollPosition == position) {
+                        Log.d("onPageScrolled----", "onPageScrolled: " + "next");
+                    } else {
+                        Log.d("onPageScrolled----", "onPageScrolled: " + "before");
+                    }
+                }
             }
         }
 
         @Override
         public void onPageSelected(final int position) {
             Log.d("onPageSelected", "onPageSelected: " + position);
+            mOldPosition = mNewPosition;
+            mNewPosition = position;
+            scrollPosition = position;
             final TabLayout tabLayout = mTabLayoutRef.get();
-            tabLayout.selectTab(tabLayout.getTabAt(position), true);
+
 
             if (tabLayout != null && tabLayout.getSelectedTabPosition() != position
                     && position < tabLayout.getTabCount()) {
@@ -2154,6 +2168,9 @@ public class TabLayout extends HorizontalScrollView {
                 final boolean updateIndicator = mScrollState == SCROLL_STATE_IDLE
                         || (mScrollState == SCROLL_STATE_SETTLING
                         && mPreviousScrollState == SCROLL_STATE_IDLE);
+                if (Math.abs(mOldPosition - mNewPosition) >= 1) {
+                    tabLayout.selectTab(tabLayout.getTabAt(position), updateIndicator);
+                }
             }
         }
 
