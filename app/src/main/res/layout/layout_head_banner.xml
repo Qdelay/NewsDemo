@@ -25,7 +25,6 @@
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_marginBottom="@dimen/tv_navigation_margin"
-        android:layout_marginTop="@dimen/tv_navigation_margin"
         android:layout_centerInParent="true"
         android:gravity="center">
 
