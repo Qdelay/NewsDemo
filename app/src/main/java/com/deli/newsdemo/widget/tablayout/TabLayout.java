@@ -30,6 +30,7 @@ import android.content.res.TypedArray;
 import android.database.DataSetObserver;
 import android.graphics.Canvas;
 import android.graphics.Paint;
+import android.graphics.Path;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.support.annotation.ColorInt;
@@ -2039,7 +2040,15 @@ public class TabLayout extends HorizontalScrollView {
             // Thick colored underline below the current selection
             if (mIndicatorLeft >= 0 && mIndicatorRight > mIndicatorLeft) {
                 //自定义画圆
-                canvas.drawCircle((mIndicatorLeft + mIndicatorRight) / 2, getHeight() - mSelectedIndicatorHeight, mSelectedIndicatorHeight, mSelectedIndicatorPaint);
+//                canvas.drawCircle((mIndicatorLeft + mIndicatorRight) / 2, getHeight() - mSelectedIndicatorHeight, mSelectedIndicatorHeight, mSelectedIndicatorPaint);
+                //自定义三角形
+                Path path = new Path();
+                path.moveTo((mIndicatorLeft + mIndicatorRight) / 2, getHeight() - mSelectedIndicatorHeight - 10);
+                path.lineTo((mIndicatorLeft + mIndicatorRight) / 2 - mSelectedIndicatorHeight - 10, getHeight());
+                path.lineTo((mIndicatorLeft + mIndicatorRight) / 2 + mSelectedIndicatorHeight + 10, getHeight());
+                path.close();
+                canvas.drawPath(path, mSelectedIndicatorPaint);
+                //自定义矩形、条形
 //                canvas.drawRect(mIndicatorLeft, getHeight() - mSelectedIndicatorHeight,
 //                        mIndicatorRight, getHeight(), mSelectedIndicatorPaint);
             }

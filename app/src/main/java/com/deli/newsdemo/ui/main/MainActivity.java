@@ -31,9 +31,6 @@ public class MainActivity extends BaseFrameActivity<MainPresenter, MainModel> im
             case MineFragment.TAG:
                 break;
             case NewsDetailsFragment.TAG:
-                NewsDetailsFragment mNewsDetailsFragment = new NewsDetailsFragment();
-                toFragment(mNewsDetailsFragment);
-                setCurrFragment(mNewsDetailsFragment);
                 break;
             default:
                 break;

@@ -2,7 +2,8 @@
 <RelativeLayout android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorShadow"
-    xmlns:android="http://schemas.android.com/apk/res/android">
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:clickable="true">
 
     <include
         android:id="@+id/head_banner"
