@@ -2040,7 +2040,7 @@ public class TabLayout extends HorizontalScrollView {
             // Thick colored underline below the current selection
             if (mIndicatorLeft >= 0 && mIndicatorRight > mIndicatorLeft) {
                 //自定义画圆
-//                canvas.drawCircle((mIndicatorLeft + mIndicatorRight) / 2, getHeight() - mSelectedIndicatorHeight, mSelectedIndicatorHeight, mSelectedIndicatorPaint);
+                //                canvas.drawCircle((mIndicatorLeft + mIndicatorRight) / 2, getHeight() - mSelectedIndicatorHeight, mSelectedIndicatorHeight, mSelectedIndicatorPaint);
                 //自定义三角形
                 Path path = new Path();
                 path.moveTo((mIndicatorLeft + mIndicatorRight) / 2, getHeight() - mSelectedIndicatorHeight - 10);
@@ -2048,9 +2048,9 @@ public class TabLayout extends HorizontalScrollView {
                 path.lineTo((mIndicatorLeft + mIndicatorRight) / 2 + mSelectedIndicatorHeight + 10, getHeight());
                 path.close();
                 canvas.drawPath(path, mSelectedIndicatorPaint);
-                //自定义矩形、条形
+                //自定义矩形、条形（默认）
 //                canvas.drawRect(mIndicatorLeft, getHeight() - mSelectedIndicatorHeight,
-//                        mIndicatorRight, getHeight(), mSelectedIndicatorPaint);
+//                mIndicatorRight, getHeight(), mSelectedIndicatorPaint);
             }
         }
     }
@@ -2138,8 +2138,8 @@ public class TabLayout extends HorizontalScrollView {
         @Override
         public void onPageScrolled(final int position, final float positionOffset,
                                    final int positionOffsetPixels) {
-            Log.d("onPageScrolled", "onPageScrolled: " + position + "--" + positionOffset + "--" + position + "--" + positionOffsetPixels);
             final TabLayout tabLayout = mTabLayoutRef.get();
+            Log.d("mTabLayoutRef", "onPageScrolled:1 ");
             if (tabLayout != null) {
                 // Only update the text selection if we're not settling, or we are settling after
                 // being dragged
@@ -2150,26 +2150,15 @@ public class TabLayout extends HorizontalScrollView {
                 // onPageSelected() instead.
                 final boolean updateIndicator = !(mScrollState == SCROLL_STATE_SETTLING
                         && mPreviousScrollState == SCROLL_STATE_IDLE);
-                if (positionOffset != 0) {
+                if (positionOffset > 0)
                     tabLayout.setScrollPosition(position, positionOffset, updateText, updateIndicator);
-                    if (scrollPosition == position) {
-                        Log.d("onPageScrolled----", "onPageScrolled: " + "next");
-                    } else {
-                        Log.d("onPageScrolled----", "onPageScrolled: " + "before");
-                    }
-                }
             }
         }
 
         @Override
         public void onPageSelected(final int position) {
-            Log.d("onPageSelected", "onPageSelected: " + position);
-            mOldPosition = mNewPosition;
-            mNewPosition = position;
-            scrollPosition = position;
             final TabLayout tabLayout = mTabLayoutRef.get();
-
-
+            Log.d("mTabLayoutRef", "onPageSelected: 2");
             if (tabLayout != null && tabLayout.getSelectedTabPosition() != position
                     && position < tabLayout.getTabCount()) {
                 // Select the tab, only updating the indicator if we're not being dragged/settled
@@ -2177,9 +2166,7 @@ public class TabLayout extends HorizontalScrollView {
                 final boolean updateIndicator = mScrollState == SCROLL_STATE_IDLE
                         || (mScrollState == SCROLL_STATE_SETTLING
                         && mPreviousScrollState == SCROLL_STATE_IDLE);
-                if (Math.abs(mOldPosition - mNewPosition) >= 1) {
-                    tabLayout.selectTab(tabLayout.getTabAt(position), updateIndicator);
-                }
+                tabLayout.selectTab(tabLayout.getTabAt(position), updateIndicator);
             }
         }
 
