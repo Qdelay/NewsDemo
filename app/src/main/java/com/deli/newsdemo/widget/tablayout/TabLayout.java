@@ -1567,8 +1567,8 @@ public class TabLayout extends HorizontalScrollView {
             //自定义圆 netease
             int txtPosition = getTextView();
             View childView = getChildAt(txtPosition);
-            canvas.drawCircle(childView.getRight() + 20, 60, mCircleOutterSize, mCirclePaint);
-            canvas.drawCircle(childView.getRight() + 20, 60, mCircleInnerSize, mInnerCircle);
+            canvas.drawCircle(childView.getRight() + 20, getHeight() / 3, mCircleOutterSize, mCirclePaint);
+            canvas.drawCircle(childView.getRight() + 20, getHeight() / 3, mCircleInnerSize, mInnerCircle);
         }
 
         int getTextView() {
