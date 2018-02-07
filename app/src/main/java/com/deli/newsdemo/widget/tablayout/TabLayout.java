@@ -29,6 +29,7 @@ import android.content.res.Resources;
 import android.content.res.TypedArray;
 import android.database.DataSetObserver;
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Path;
 import android.graphics.drawable.Drawable;
@@ -414,6 +415,7 @@ public class TabLayout extends HorizontalScrollView {
     void setScrollPosition(int position, float positionOffset, boolean updateSelectedText,
                            boolean updateIndicatorPosition) {
         final int roundedPosition = Math.round(position + positionOffset);
+
         if (roundedPosition < 0 || roundedPosition >= mTabStrip.getChildCount()) {
             return;
         }
@@ -428,10 +430,29 @@ public class TabLayout extends HorizontalScrollView {
             mScrollAnimator.cancel();
         }
         scrollTo(calculateScrollXForTab(position, positionOffset), 0);
-
+        setCircleZoom(position, positionOffset);
         // Update the 'selected state' view as we scroll, if enabled
         if (updateSelectedText) {
             setSelectedTabView(roundedPosition);
+        }
+    }
+
+    void setCircleZoom(int position, float positionOffset) {
+        int selectPostition = 0;
+        if (mSelectedTab != null) {
+            Log.d("setScrollPosition", "setScrollPosition: " + mSelectedTab.getPosition() + "-----position" + position);
+            selectPostition = mSelectedTab.getPosition();
+        }
+        TabView curTabView = (TabView) mTabStrip.getChildAt(selectPostition);
+        TabView nextTabView;
+        if ((position - selectPostition) >= 0) {
+            curTabView.setCircleSize(positionOffset);
+            nextTabView = (TabView) mTabStrip.getChildAt(selectPostition + 1);
+            nextTabView.setCircleSize(1 - positionOffset);
+        } else {
+            curTabView.setCircleSize(1 - positionOffset);
+            nextTabView = (TabView) mTabStrip.getChildAt(selectPostition - 1);
+            nextTabView.setCircleSize(positionOffset);
         }
     }
 
@@ -1148,6 +1169,11 @@ public class TabLayout extends HorizontalScrollView {
                     setScrollPosition(newPosition, 0f, true);
                 } else {
                     animateToTab(newPosition);
+                    //修改前置和后置tab圆圈的状态
+                    TabView newTabView = (TabView) mTabStrip.getChildAt(newPosition);
+                    newTabView.setCircleSelectAnimator(true);
+                    TabView oldTabView = (TabView) mTabStrip.getChildAt(currentTab.getPosition());
+                    oldTabView.setCircleSelectAnimator(false);
                 }
                 if (newPosition != Tab.INVALID_POSITION) {
                     setSelectedTabView(newPosition);
@@ -1510,7 +1536,11 @@ public class TabLayout extends HorizontalScrollView {
         private View mCustomView;
         private TextView mCustomTextView;
         private ImageView mCustomIconView;
+        private Paint mCirclePaint;
+        private Paint mInnerCircle;
 
+        private float mCircleInnerSize = 0;
+        private float mCircleOutterSize = 0;
         private int mDefaultMaxLines = 2;
 
         public TabView(Context context) {
@@ -1526,6 +1556,28 @@ public class TabLayout extends HorizontalScrollView {
             setClickable(true);
             ViewCompat.setPointerIcon(this,
                     PointerIconCompat.getSystemIcon(getContext(), PointerIconCompat.TYPE_HAND));
+            mCirclePaint = new Paint();
+            mInnerCircle = new Paint();
+            setmCirclePaintColor(Color.RED);
+        }
+
+        @Override
+        protected void onDraw(Canvas canvas) {
+            super.onDraw(canvas);
+            //自定义圆 netease
+            int txtPosition = getTextView();
+            View childView = getChildAt(txtPosition);
+            canvas.drawCircle(childView.getRight() + 20, 60, mCircleOutterSize, mCirclePaint);
+            canvas.drawCircle(childView.getRight() + 20, 60, mCircleInnerSize, mInnerCircle);
+        }
+
+        int getTextView() {
+            for (int i = 0; i < getChildCount(); i++) {
+                if (getChildAt(i) instanceof TextView) {
+                    return i;
+                }
+            }
+            return 0;
         }
 
         @Override
@@ -1725,6 +1777,7 @@ public class TabLayout extends HorizontalScrollView {
             setSelected(tab != null && tab.isSelected());
         }
 
+
         private void updateTextAndIcon(@Nullable final TextView textView,
                                        @Nullable final ImageView iconView) {
             final Drawable icon = mTab != null ? mTab.getIcon() : null;
@@ -1781,6 +1834,36 @@ public class TabLayout extends HorizontalScrollView {
         private float approximateLineWidth(Layout layout, int line, float textSize) {
             return layout.getLineWidth(line) * (textSize / layout.getPaint().getTextSize());
         }
+
+        public void setmCirclePaintColor(int color) {
+            mCirclePaint.setColor(color);
+            mInnerCircle.setColor(Color.WHITE);
+            ViewCompat.postInvalidateOnAnimation(this);
+        }
+
+        public void setCircleSize(float positionOffset) {
+            mCircleInnerSize = 5 * (1f - positionOffset);
+            mCircleOutterSize = 12 * (1f - positionOffset);
+            ViewCompat.postInvalidateOnAnimation(this);
+        }
+
+        public void setCircleSelectAnimator(boolean isShow) {
+            ValueAnimator mValueAnimator;
+            if (isShow) {
+                mValueAnimator = ValueAnimator.ofFloat(1f, 0f);
+            } else {
+                mValueAnimator = ValueAnimator.ofFloat(0f, 1f);
+            }
+            mValueAnimator.setDuration(300);
+            mValueAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+                @Override
+                public void onAnimationUpdate(ValueAnimator animator) {
+                    final float fraction = (float) animator.getAnimatedValue();
+                    setCircleSize(fraction);
+                }
+            });
+            mValueAnimator.start();
+        }
     }
 
     private class SlidingTabStrip extends LinearLayout {
@@ -1834,7 +1917,6 @@ public class TabLayout extends HorizontalScrollView {
 
             mSelectedPosition = position;
             mSelectionOffset = positionOffset;
-            Log.d("mSelectionOffset", "setIndicatorPositionFromTabPosition: " + positionOffset);
             updateIndicatorPosition();
         }
 
@@ -2040,7 +2122,9 @@ public class TabLayout extends HorizontalScrollView {
             // Thick colored underline below the current selection
             if (mIndicatorLeft >= 0 && mIndicatorRight > mIndicatorLeft) {
                 //自定义画圆
-                //                canvas.drawCircle((mIndicatorLeft + mIndicatorRight) / 2, getHeight() - mSelectedIndicatorHeight, mSelectedIndicatorHeight, mSelectedIndicatorPaint);
+//                canvas.drawCircle((mIndicatorLeft + mIndicatorRight) / 2, getHeight() - mSelectedIndicatorHeight, mSelectedIndicatorHeight, mSelectedIndicatorPaint);
+                //自定义圆 netease
+//                canvas.drawCircle(mIndicatorLeft+40, 40, mSelectedIndicatorHeight+10, mSelectedIndicatorPaint);
                 //自定义三角形
                 Path path = new Path();
                 path.moveTo((mIndicatorLeft + mIndicatorRight) / 2, getHeight() - mSelectedIndicatorHeight - 10);
@@ -2139,7 +2223,7 @@ public class TabLayout extends HorizontalScrollView {
         public void onPageScrolled(final int position, final float positionOffset,
                                    final int positionOffsetPixels) {
             final TabLayout tabLayout = mTabLayoutRef.get();
-            Log.d("mTabLayoutRef", "onPageScrolled:1 ");
+            Log.d("onPageScrolled", "onPageScrolled: " + position + "---offset---" + positionOffset);
             if (tabLayout != null) {
                 // Only update the text selection if we're not settling, or we are settling after
                 // being dragged
@@ -2150,15 +2234,17 @@ public class TabLayout extends HorizontalScrollView {
                 // onPageSelected() instead.
                 final boolean updateIndicator = !(mScrollState == SCROLL_STATE_SETTLING
                         && mPreviousScrollState == SCROLL_STATE_IDLE);
-                if (positionOffset > 0)
+                if (positionOffset > 0) {
                     tabLayout.setScrollPosition(position, positionOffset, updateText, updateIndicator);
+                }
+
             }
         }
 
         @Override
         public void onPageSelected(final int position) {
             final TabLayout tabLayout = mTabLayoutRef.get();
-            Log.d("mTabLayoutRef", "onPageSelected: 2");
+            Log.d("onPageSelected", "onPageSelected: ");
             if (tabLayout != null && tabLayout.getSelectedTabPosition() != position
                     && position < tabLayout.getTabCount()) {
                 // Select the tab, only updating the indicator if we're not being dragged/settled
