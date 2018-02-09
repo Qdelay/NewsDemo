@@ -33,8 +33,10 @@ public class NewsRcAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
-        NewsHolder newsHolder = (NewsHolder) holder;
-        newsHolder.newsTitle.setText("hello" + mData.get(position));
+        if (holder instanceof NewsHolder) {
+            NewsHolder newsHolder = (NewsHolder) holder;
+            newsHolder.newsTitle.setText("hello" + mData.get(position));
+        }
     }
 
     @Override
@@ -51,4 +53,8 @@ public class NewsRcAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         }
     }
 
+    @Override
+    public int getItemViewType(int position) {
+        return super.getItemViewType(position);
+    }
 }
