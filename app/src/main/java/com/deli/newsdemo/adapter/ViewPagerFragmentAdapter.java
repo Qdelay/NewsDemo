@@ -13,7 +13,7 @@ import java.util.List;
 
 public class ViewPagerFragmentAdapter extends FragmentPagerAdapter {
     List<Fragment> mFragments;
-    private String[] titles = {"页面123", "页面2", "页面3", "页面1", "页面2222", "页面3", "页面33331", "页面2", "页面3"};
+    private String[] titles = {"页面1", "页面2", "页面3", "页面4", "页面5", "页面6", "页面7", "页面8", "页面9"};
 
     public ViewPagerFragmentAdapter(FragmentManager fm, List<Fragment> mFragments) {
         super(fm);
