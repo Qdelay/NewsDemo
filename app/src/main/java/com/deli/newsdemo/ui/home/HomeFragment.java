@@ -80,7 +80,7 @@ public class HomeFragment extends BaseFrameFragment<HomePresenter, HomeModel>
 //                    vp_home.setCurrentItem(tab.getPosition());
 
                 oldPosition = tab.getPosition();
-
+                mPresenter.getNews();
             }
 
             @Override
