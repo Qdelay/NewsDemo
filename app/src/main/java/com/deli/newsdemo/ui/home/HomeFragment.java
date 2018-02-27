@@ -3,15 +3,18 @@ package com.deli.newsdemo.ui.home;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.View;
 
 import com.deli.newsdemo.R;
 import com.deli.newsdemo.adapter.ViewPagerFragmentAdapter;
 import com.deli.newsdemo.mvpframe.base.BaseFrameFragment;
 import com.deli.newsdemo.ui.home.type.NewsTypeFragment;
+import com.deli.newsdemo.util.ViewPagerSpeedUtils;
 import com.deli.newsdemo.widget.header.HeadBanner;
 import com.deli.newsdemo.widget.tablayout.TabLayout;
 
+import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -27,6 +30,7 @@ import butterknife.Unbinder;
 
 public class HomeFragment extends BaseFrameFragment<HomePresenter, HomeModel>
         implements HomeContract.View {
+    public static final String TAG = "HomeFragment";
     @BindView(R.id.head_banner)
     HeadBanner mHeadBanner;
     @BindView(R.id.tl_home)
@@ -72,15 +76,18 @@ public class HomeFragment extends BaseFrameFragment<HomePresenter, HomeModel>
         mFragments.add(new NewsTypeFragment());
         mViewPagerFragmentAdapter = new ViewPagerFragmentAdapter(getChildFragmentManager(), mFragments);
         vp_home.setAdapter(mViewPagerFragmentAdapter);
+        vp_home.setOffscreenPageLimit(0);
         tl_home.setupWithViewPager(vp_home);
         tl_home.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
-                vp_home.setCurrentItem(tab.getPosition(), false);
-//                    vp_home.setCurrentItem(tab.getPosition());
-
+                Log.d(TAG, "onTabSelected: " + (Math.abs(oldPosition - tab.getPosition()) <= 1));
+                if (Math.abs(oldPosition - tab.getPosition()) <= 1) {
+                    vp_home.setCurrentItem(tab.getPosition(), true);
+                } else {
+                    vp_home.setCurrentItem(tab.getPosition(), false);
+                }
                 oldPosition = tab.getPosition();
-                mPresenter.getNews();
             }
 
             @Override
@@ -93,6 +100,17 @@ public class HomeFragment extends BaseFrameFragment<HomePresenter, HomeModel>
 
             }
         });
+        //设定viewpager滑动时间
+        try {
+            Field mScroller = null;
+            mScroller = ViewPager.class.getDeclaredField("mScroller");
+            mScroller.setAccessible(true);
+            ViewPagerSpeedUtils scroller = new ViewPagerSpeedUtils(vp_home.getContext());
+            mScroller.set(vp_home, scroller);
+        } catch (NoSuchFieldException e) {
+        } catch (IllegalArgumentException e) {
+        } catch (IllegalAccessException e) {
+        }
     }
 
     @Override

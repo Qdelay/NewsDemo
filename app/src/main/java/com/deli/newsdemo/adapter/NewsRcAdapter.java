@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.deli.newsdemo.R;
+import com.deli.newsdemo.entity.NewsHeadlineEntity;
 
 import java.util.List;
 
@@ -35,7 +36,8 @@ public class NewsRcAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         if (holder instanceof NewsHolder) {
             NewsHolder newsHolder = (NewsHolder) holder;
-            newsHolder.newsTitle.setText("hello" + mData.get(position));
+            NewsHeadlineEntity.T1348647853363Bean item = (NewsHeadlineEntity.T1348647853363Bean) mData.get(position);
+            newsHolder.newsTitle.setText(item.getTitle());
         }
     }
 

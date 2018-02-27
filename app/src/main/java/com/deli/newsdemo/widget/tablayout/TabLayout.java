@@ -1163,15 +1163,17 @@ public class TabLayout extends HorizontalScrollView {
         } else {
             final int newPosition = tab != null ? tab.getPosition() : Tab.INVALID_POSITION;
             if (updateIndicator) {
+                //画出圆圈
+                TabView newTabView = (TabView) mTabStrip.getChildAt(newPosition);
+                newTabView.setCircleSelectAnimator(true);
                 if ((currentTab == null || currentTab.getPosition() == Tab.INVALID_POSITION)
                         && newPosition != Tab.INVALID_POSITION) {
                     // If we don't currently have a tab, just draw the indicator
                     setScrollPosition(newPosition, 0f, true);
+
                 } else {
                     animateToTab(newPosition);
                     //修改前置和后置tab圆圈的状态
-                    TabView newTabView = (TabView) mTabStrip.getChildAt(newPosition);
-                    newTabView.setCircleSelectAnimator(true);
                     TabView oldTabView = (TabView) mTabStrip.getChildAt(currentTab.getPosition());
                     oldTabView.setCircleSelectAnimator(false);
                 }
@@ -1842,8 +1844,8 @@ public class TabLayout extends HorizontalScrollView {
         }
 
         public void setCircleSize(float positionOffset) {
-            mCircleInnerSize = 5 * (1f - positionOffset);
-            mCircleOutterSize = 12 * (1f - positionOffset);
+            mCircleInnerSize = (getHeight() / 25) * (1f - positionOffset);
+            mCircleOutterSize = (getHeight() / 12) * (1f - positionOffset);
             ViewCompat.postInvalidateOnAnimation(this);
         }
 
@@ -1854,7 +1856,7 @@ public class TabLayout extends HorizontalScrollView {
             } else {
                 mValueAnimator = ValueAnimator.ofFloat(0f, 1f);
             }
-            mValueAnimator.setDuration(300);
+            mValueAnimator.setDuration(ANIMATION_DURATION);
             mValueAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
                 @Override
                 public void onAnimationUpdate(ValueAnimator animator) {
@@ -2204,9 +2206,6 @@ public class TabLayout extends HorizontalScrollView {
         private final WeakReference<TabLayout> mTabLayoutRef;
         private int mPreviousScrollState;
         private int mScrollState;
-        private int mOldPosition = 0;
-        private int mNewPosition = 0;
-        private int scrollPosition = 0;
 
         public TabLayoutOnPageChangeListener(TabLayout tabLayout) {
             mTabLayoutRef = new WeakReference<>(tabLayout);
@@ -2244,7 +2243,7 @@ public class TabLayout extends HorizontalScrollView {
         @Override
         public void onPageSelected(final int position) {
             final TabLayout tabLayout = mTabLayoutRef.get();
-            Log.d("onPageSelected", "onPageSelected: ");
+            Log.d("onPageSelected", "onPageSelected: " + position);
             if (tabLayout != null && tabLayout.getSelectedTabPosition() != position
                     && position < tabLayout.getTabCount()) {
                 // Select the tab, only updating the indicator if we're not being dragged/settled
@@ -2320,6 +2319,10 @@ public class TabLayout extends HorizontalScrollView {
         void setAutoRefresh(boolean autoRefresh) {
             mAutoRefresh = autoRefresh;
         }
+    }
+
+    public TabLayoutOnPageChangeListener getmPageChangeListener() {
+        return mPageChangeListener;
     }
 }
 
