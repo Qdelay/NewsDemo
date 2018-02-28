@@ -3,8 +3,7 @@ package com.deli.newsdemo.ui.home.type;
 import android.util.Log;
 
 import com.deli.newsdemo.entity.NewsHeadlineEntity;
-
-import rx.Subscriber;
+import com.deli.newsdemo.rx.NetworkSubscriber;
 
 /**
  * @auther : qiudeli QQ:364978880
@@ -18,7 +17,7 @@ public class NewsTypePresenter extends NewsTypeContract.Presenter {
     @Override
     public void getNews() {
         mRxManager.add(mModel.getNews()
-                .subscribe(new Subscriber<NewsHeadlineEntity>() {
+                .subscribe(new NetworkSubscriber<NewsHeadlineEntity>() {
                     @Override
                     public void onCompleted() {
                         Log.d(TAG, "onCompleted: ");
@@ -26,8 +25,10 @@ public class NewsTypePresenter extends NewsTypeContract.Presenter {
 
                     @Override
                     public void onError(Throwable e) {
-                        Log.d(TAG, "onError: " + e.toString());
-                        getNews();
+                        super.onError(e);
+                        if (e.getMessage().contains("403")) {
+                            getNews();
+                        }
                     }
 
                     @Override

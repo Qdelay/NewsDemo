@@ -1,9 +1,13 @@
 package com.deli.newsdemo.ui.home.type;
 
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 
 import com.deli.newsdemo.R;
 import com.deli.newsdemo.adapter.NewsRcAdapter;
@@ -38,12 +42,25 @@ public class NewsTypeFragment extends BaseFrameFragment<NewsTypePresenter, NewsT
         super.onCreate(savedInstanceState);
         setContentView(R.layout.fragment_news_type);
         unbinder = ButterKnife.bind(this, getContentView());
+        Log.d(TAG, "onCreate: ");
+    }
 
+    @Nullable
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+
+        return super.onCreateView(inflater, container, savedInstanceState);
+    }
+
+    @Override
+    public void initData() {
+        super.initData();
     }
 
     @Override
     public void initView() {
         super.initView();
+        Log.d(TAG, "initView: ");
         adapter = new NewsRcAdapter(getActivity(), data);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
