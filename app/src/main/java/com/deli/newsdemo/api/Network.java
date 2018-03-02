@@ -57,7 +57,6 @@ public class Network {
 
     private OkHttpClient configClient() {
         OkHttpClient.Builder okHttpClient = new OkHttpClient.Builder()
-                .retryOnConnectionFailure(false)
                 .connectTimeout(DEFAULT_TIMEOUT, TimeUnit.SECONDS);
         return okHttpClient.build();
     }

@@ -45,10 +45,8 @@ import android.support.annotation.StringRes;
 import android.support.design.R;
 import android.support.v4.util.Pools;
 import android.support.v4.view.GravityCompat;
-import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.PointerIconCompat;
 import android.support.v4.view.ViewCompat;
-import android.support.v4.view.ViewPager;
 import android.support.v4.widget.TextViewCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.content.res.AppCompatResources;
@@ -78,9 +76,10 @@ import java.util.ArrayList;
 import java.util.Iterator;
 
 import static android.support.annotation.RestrictTo.Scope.LIBRARY_GROUP;
-import static android.support.v4.view.ViewPager.SCROLL_STATE_DRAGGING;
-import static android.support.v4.view.ViewPager.SCROLL_STATE_IDLE;
-import static android.support.v4.view.ViewPager.SCROLL_STATE_SETTLING;
+import static com.deli.newsdemo.widget.tablayout.ViewPager.SCROLL_STATE_DRAGGING;
+import static com.deli.newsdemo.widget.tablayout.ViewPager.SCROLL_STATE_IDLE;
+import static com.deli.newsdemo.widget.tablayout.ViewPager.SCROLL_STATE_SETTLING;
+
 
 /**
  * TabLayout provides a horizontal layout to display tabs.

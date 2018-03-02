@@ -27,5 +27,7 @@ public interface NewsTypeContract {
 
     abstract class Presenter extends BasePresenter<Model, View> {
         public abstract void getNews();
+
+        public abstract void clearRequest();
     }
 }

@@ -26,6 +26,7 @@ public class NewsTypePresenter extends NewsTypeContract.Presenter {
                     @Override
                     public void onError(Throwable e) {
                         super.onError(e);
+                        Log.d(TAG, "onError: " + e.getMessage());
                         if (e.getMessage().contains("403")) {
                             getNews();
                         }
@@ -37,5 +38,10 @@ public class NewsTypePresenter extends NewsTypeContract.Presenter {
                         mView.refreshData(newsHeadlineEntity.getT1348647853363());
                     }
                 }));
+    }
+
+    @Override
+    public void clearRequest() {
+        mRxManager.clear();
     }
 }

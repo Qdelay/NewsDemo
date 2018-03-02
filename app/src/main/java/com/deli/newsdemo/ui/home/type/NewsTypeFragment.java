@@ -1,13 +1,9 @@
 package com.deli.newsdemo.ui.home.type;
 
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
 
 import com.deli.newsdemo.R;
 import com.deli.newsdemo.adapter.NewsRcAdapter;
@@ -37,19 +33,23 @@ public class NewsTypeFragment extends BaseFrameFragment<NewsTypePresenter, NewsT
 
     private List<NewsHeadlineEntity.T1348647853363Bean> data = new ArrayList<>();
 
+    private boolean isUiVisible = false;
+
+    private boolean isUserVisible = false;
+
+    private boolean isFirstLoad = true;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.fragment_news_type);
         unbinder = ButterKnife.bind(this, getContentView());
+        adapter = new NewsRcAdapter(getActivity(), data);
+        LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
+        layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+        mRcNews.setLayoutManager(layoutManager);
+        mRcNews.setAdapter(adapter);
         Log.d(TAG, "onCreate: ");
-    }
-
-    @Nullable
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-
-        return super.onCreateView(inflater, container, savedInstanceState);
     }
 
     @Override
@@ -60,14 +60,12 @@ public class NewsTypeFragment extends BaseFrameFragment<NewsTypePresenter, NewsT
     @Override
     public void initView() {
         super.initView();
+
+        if (isFirstLoad) {
+            mPresenter.getNews();
+            isFirstLoad = false;
+        }
         Log.d(TAG, "initView: ");
-        adapter = new NewsRcAdapter(getActivity(), data);
-        LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
-        layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
-        mRcNews.setLayoutManager(layoutManager);
-        mRcNews.setAdapter(adapter);
-        adapter.notifyDataSetChanged();
-        mPresenter.getNews();
     }
 
     @Override
@@ -81,5 +79,15 @@ public class NewsTypeFragment extends BaseFrameFragment<NewsTypePresenter, NewsT
         data.clear();
         data.addAll(bean);
         adapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+        isUserVisible = isVisibleToUser;
+        if (isUserVisible && !isFirstLoad) {
+            mPresenter.getNews();
+        }
+        Log.d(TAG, "setUserVisibleHint: " + isVisibleToUser);
     }
 }

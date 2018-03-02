@@ -2,7 +2,6 @@ package com.deli.newsdemo.ui.home;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.view.View;
 
@@ -13,6 +12,7 @@ import com.deli.newsdemo.ui.home.type.NewsTypeFragment;
 import com.deli.newsdemo.util.ViewPagerSpeedUtils;
 import com.deli.newsdemo.widget.header.HeadBanner;
 import com.deli.newsdemo.widget.tablayout.TabLayout;
+import com.deli.newsdemo.widget.tablayout.ViewPager;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
@@ -76,7 +76,6 @@ public class HomeFragment extends BaseFrameFragment<HomePresenter, HomeModel>
         mFragments.add(new NewsTypeFragment());
         mViewPagerFragmentAdapter = new ViewPagerFragmentAdapter(getChildFragmentManager(), mFragments);
         vp_home.setAdapter(mViewPagerFragmentAdapter);
-        vp_home.setOffscreenPageLimit(0);
         tl_home.setupWithViewPager(vp_home);
         tl_home.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
