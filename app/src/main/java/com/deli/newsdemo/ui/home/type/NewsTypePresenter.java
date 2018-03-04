@@ -16,6 +16,7 @@ public class NewsTypePresenter extends NewsTypeContract.Presenter {
 
     @Override
     public void getNews() {
+        Log.d(TAG, "getNews: ");
         mRxManager.add(mModel.getNews()
                 .subscribe(new NetworkSubscriber<NewsHeadlineEntity>() {
                     @Override
@@ -42,6 +43,6 @@ public class NewsTypePresenter extends NewsTypeContract.Presenter {
 
     @Override
     public void clearRequest() {
-        mRxManager.clear();
+        mRxManager.clearRequest();
     }
 }

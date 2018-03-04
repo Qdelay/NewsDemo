@@ -36,10 +36,17 @@ public class RxManager {
     }
 
     public void clear() {
+        mCompositeSubscription.clear();
         mCompositeSubscription.unsubscribe();// 取消订阅
         for (Map.Entry<String, Observable<?>> entry : mObservables.entrySet()) {
             mRxBus.unregister(entry.getKey(), entry.getValue());// 移除观察
         }
+    }
+
+    public void clearRequest() {
+        //使用CompositeSubscription.clear()方法，它与unsubscribe方法几乎一模一样，
+        // 都会对添加的元素进行解绑，而唯一不同的地方就是clear掉了之后该CompositeSubscription还可以继续使用。
+        mCompositeSubscription.clear();
     }
 
     public void post(Object tag, Object content) {

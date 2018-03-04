@@ -1,6 +1,7 @@
 package com.deli.newsdemo.ui.home.type;
 
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -22,7 +23,7 @@ import butterknife.Unbinder;
  */
 
 public class NewsTypeFragment extends BaseFrameFragment<NewsTypePresenter, NewsTypeModel>
-        implements NewsTypeContract.View {
+        implements NewsTypeContract.View, Runnable {
     public static final String TAG = "NewsTypeFragment";
     @BindView(R.id.rc_news)
     RecyclerView mRcNews;
@@ -32,12 +33,6 @@ public class NewsTypeFragment extends BaseFrameFragment<NewsTypePresenter, NewsT
     private NewsRcAdapter adapter;
 
     private List<NewsHeadlineEntity.T1348647853363Bean> data = new ArrayList<>();
-
-    private boolean isUiVisible = false;
-
-    private boolean isUserVisible = false;
-
-    private boolean isFirstLoad = true;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -60,17 +55,14 @@ public class NewsTypeFragment extends BaseFrameFragment<NewsTypePresenter, NewsT
     @Override
     public void initView() {
         super.initView();
-
-        if (isFirstLoad) {
-            mPresenter.getNews();
-            isFirstLoad = false;
-        }
         Log.d(TAG, "initView: ");
     }
+
 
     @Override
     public void onDestroyView() {
         super.onDestroyView();
+        mPresenter.clearRequest();
     }
 
     @Override
@@ -84,10 +76,16 @@ public class NewsTypeFragment extends BaseFrameFragment<NewsTypePresenter, NewsT
     @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
-        isUserVisible = isVisibleToUser;
-        if (isUserVisible && !isFirstLoad) {
-            mPresenter.getNews();
+        if (isVisibleToUser) {
+            final Handler handler = new Handler();
+            handler.postDelayed(this, 500);
+        } else {
         }
-        Log.d(TAG, "setUserVisibleHint: " + isVisibleToUser);
+    }
+
+    @Override
+    public void run() {
+        Log.d(TAG, "setUserVisibleHint: ");
+        mPresenter.getNews();
     }
 }
