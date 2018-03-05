@@ -34,6 +34,8 @@ public class NewsTypeFragment extends BaseFrameFragment<NewsTypePresenter, NewsT
 
     private List<NewsHeadlineEntity.T1348647853363Bean> data = new ArrayList<>();
 
+    private Handler handler = new Handler();
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -77,9 +79,10 @@ public class NewsTypeFragment extends BaseFrameFragment<NewsTypePresenter, NewsT
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
         if (isVisibleToUser) {
-            final Handler handler = new Handler();
-            handler.postDelayed(this, 500);
+            handler = new Handler();
+            handler.postDelayed(this, 1000);
         } else {
+            handler.removeCallbacksAndMessages(null);
         }
     }
 
