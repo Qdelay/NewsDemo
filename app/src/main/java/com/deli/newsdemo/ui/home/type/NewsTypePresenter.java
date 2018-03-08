@@ -28,15 +28,15 @@ public class NewsTypePresenter extends NewsTypeContract.Presenter {
                     public void onError(Throwable e) {
                         super.onError(e);
                         Log.d(TAG, "onError: " + e.getMessage());
-                        if (e.getMessage().contains("403")) {
+                        if (e.getMessage().contains("400")) {
                             getNews();
                         }
                     }
 
                     @Override
                     public void onNext(NewsHeadlineEntity newsHeadlineEntity) {
-                        Log.d("onCompleted", "onCompleted: " + newsHeadlineEntity.getT1348647853363().get(0).getImgsrc());
-                        mView.refreshData(newsHeadlineEntity.getT1348647853363());
+                        Log.d("onCompleted", "onCompleted: " + newsHeadlineEntity.getSubjects().get(0).getOriginal_title());
+                        mView.refreshData(newsHeadlineEntity.getSubjects());
                     }
                 }));
     }

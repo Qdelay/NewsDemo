@@ -36,7 +36,7 @@ public class NewsRcAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         if (holder instanceof NewsHolder) {
             NewsHolder newsHolder = (NewsHolder) holder;
-            NewsHeadlineEntity.T1348647853363Bean item = (NewsHeadlineEntity.T1348647853363Bean) mData.get(position);
+            NewsHeadlineEntity.SubjectsBean item = (NewsHeadlineEntity.SubjectsBean) mData.get(position);
             newsHolder.newsTitle.setText(item.getTitle());
         }
     }

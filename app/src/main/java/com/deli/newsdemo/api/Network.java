@@ -47,7 +47,7 @@ public class Network {
 
     private <T> T configRetrofit(Class<T> service) {
         retrofit = new Retrofit.Builder()
-                .baseUrl(Constants.API_BASE_URL)
+                .baseUrl(Constants.DOUBAN_BASE_URL)
                 .client(configClient())
                 .addConverterFactory(GsonConverterFactory.create())
                 .addCallAdapterFactory(RxJavaCallAdapterFactory.create())

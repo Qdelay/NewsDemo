@@ -22,7 +22,7 @@ public interface NewsTypeContract {
 
     }
     interface View extends BaseView {
-        void refreshData(List<NewsHeadlineEntity.T1348647853363Bean> data);
+        void refreshData(List<NewsHeadlineEntity.SubjectsBean> data);
     }
 
     abstract class Presenter extends BasePresenter<Model, View> {

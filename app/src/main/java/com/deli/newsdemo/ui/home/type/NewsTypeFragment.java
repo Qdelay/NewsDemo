@@ -32,7 +32,7 @@ public class NewsTypeFragment extends BaseFrameFragment<NewsTypePresenter, NewsT
 
     private NewsRcAdapter adapter;
 
-    private List<NewsHeadlineEntity.T1348647853363Bean> data = new ArrayList<>();
+    private List<NewsHeadlineEntity.SubjectsBean> data = new ArrayList<>();
 
     private Handler handler = new Handler();
 
@@ -68,7 +68,7 @@ public class NewsTypeFragment extends BaseFrameFragment<NewsTypePresenter, NewsT
     }
 
     @Override
-    public void refreshData(List<NewsHeadlineEntity.T1348647853363Bean> bean) {
+    public void refreshData(List<NewsHeadlineEntity.SubjectsBean> bean) {
         Log.d(TAG, "refreshData: " + bean.size());
         data.clear();
         data.addAll(bean);

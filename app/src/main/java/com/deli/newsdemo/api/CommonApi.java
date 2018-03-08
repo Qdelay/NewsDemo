@@ -13,7 +13,10 @@ import rx.Observable;
 
 public interface CommonApi {
 
-    @GET("T1348647853363/0-20.html")
+//    @GET("T1348647853363/0-20.html")
+//    Observable<NewsHeadlineEntity> getHeadlineNews();
+
+    @GET("v2/movie/top250?start=25&count=25")
     Observable<NewsHeadlineEntity> getHeadlineNews();
 
 }
