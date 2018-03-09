@@ -80,7 +80,7 @@ public class NewsTypeFragment extends BaseFrameFragment<NewsTypePresenter, NewsT
         super.setUserVisibleHint(isVisibleToUser);
         if (isVisibleToUser) {
             handler = new Handler();
-            handler.postDelayed(this, 1000);
+            handler.postDelayed(this, 500);
         } else {
             handler.removeCallbacksAndMessages(null);
         }

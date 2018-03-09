@@ -12,7 +12,7 @@ import rx.Subscriber;
 public abstract class NetworkSubscriber<T> extends Subscriber<T> {
     @Override
     public void onError(Throwable e) {
-        if (!NetworkUtils.isAvailableByPing()) {
+        if (!NetworkUtils.isConnected()) {
             ToastUtils.showToast("wrong net");
             return;
         }

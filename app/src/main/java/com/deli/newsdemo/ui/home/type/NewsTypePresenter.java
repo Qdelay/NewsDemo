@@ -5,6 +5,9 @@ import android.util.Log;
 import com.deli.newsdemo.entity.NewsHeadlineEntity;
 import com.deli.newsdemo.rx.NetworkSubscriber;
 
+import rx.android.schedulers.AndroidSchedulers;
+import rx.schedulers.Schedulers;
+
 /**
  * @auther : qiudeli QQ:364978880
  * @date : 2017/7/23 15:15
@@ -14,10 +17,16 @@ import com.deli.newsdemo.rx.NetworkSubscriber;
 public class NewsTypePresenter extends NewsTypeContract.Presenter {
     private static final String TAG = "NewsTypePresenter";
 
+    /**
+     * .subscribeOn(Schedulers.newThread())//指定 subscribe() 发生在新的线程
+     * .observeOn(AndroidSchedulers.mainThread())// 指定 Subscriber 的回调发生在主线程
+     */
     @Override
     public void getNews() {
         Log.d(TAG, "getNews: ");
         mRxManager.add(mModel.getNews()
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(Schedulers.io())
                 .subscribe(new NetworkSubscriber<NewsHeadlineEntity>() {
                     @Override
                     public void onCompleted() {
