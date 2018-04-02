@@ -3,8 +3,9 @@
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
     <dimen name="tv_navigation_margin">5dp</dimen>
-    <dimen name="head_banner">32dp</dimen>
-    <dimen name="bottom_navigation">42dp</dimen>
+    <dimen name="head_banner">@dimen/y200</dimen>
+    <dimen name="bottom_navigation">@dimen/y140</dimen>
     <dimen name="banner_text_size">20sp</dimen>
-    <dimen name="bottom_navigation_text_size">10sp</dimen>
+    <dimen name="bottom_navigation_text_size">@dimen/x30</dimen>
+    <dimen name="head_banner_image_size">@dimen/x70</dimen>
 </resources>

@@ -1,6 +1,7 @@
 package com.deli.newsdemo.ui.main;
 
 import android.os.Bundle;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.KeyEvent;
 
@@ -49,6 +50,10 @@ public class MainActivity extends BaseFrameActivity<MainPresenter, MainModel> im
         setContentView(R.layout.activity_main);
         unbinder = ButterKnife.bind(this);
         setFragmentId(R.id.container);
+        DisplayMetrics dm = new DisplayMetrics();
+        getWindowManager().getDefaultDisplay().getMetrics(dm);
+        System.out.println("width-display :" + dm.widthPixels);
+        System.out.println("heigth-display :" + dm.heightPixels);
     }
 
     @Override

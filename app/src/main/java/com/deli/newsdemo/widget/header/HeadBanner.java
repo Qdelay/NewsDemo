@@ -5,7 +5,6 @@ import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -23,9 +22,9 @@ public class HeadBanner extends RelativeLayout {
 
     private BannerBtnClick mBannerBtnClick;
 
-    private LinearLayout btn_left;
+    private RelativeLayout btn_left;
 
-    private LinearLayout btn_right;
+    private RelativeLayout btn_right;
 
     private TextView tv_header_title;
 
@@ -72,11 +71,11 @@ public class HeadBanner extends RelativeLayout {
         tv_header_title = mContainerView.findViewById(R.id.tv_header_title);
     }
 
-    public LinearLayout getBtn_left() {
+    public RelativeLayout getBtn_left() {
         return btn_left;
     }
 
-    public LinearLayout getBtn_right() {
+    public RelativeLayout getBtn_right() {
         return btn_right;
     }
 

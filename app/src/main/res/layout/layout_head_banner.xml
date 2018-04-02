@@ -4,54 +4,55 @@
     android:background="@color/red"
     xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <LinearLayout
+    <RelativeLayout
         android:id="@+id/btn_left"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:layout_alignParentStart="true"
         android:orientation="vertical"
         android:layout_marginStart="@dimen/tv_navigation_margin">
 
         <ImageView
             android:id="@+id/iv_left"
-            android:layout_width="30dp"
-            android:layout_height="match_parent"
+            android:layout_width="@dimen/head_banner_image_size"
+            android:layout_height="@dimen/head_banner_image_size"
             android:src="@drawable/vector_drawable_back"
             android:tint="@color/colorPrimary"
-            android:layout_margin="@dimen/tv_navigation_margin" />
-    </LinearLayout>
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="@dimen/y30" />
+    </RelativeLayout>
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:layout_marginBottom="@dimen/tv_navigation_margin"
-        android:layout_centerInParent="true"
-        android:gravity="center">
+        android:layout_centerInParent="true">
 
         <TextView
             android:id="@+id/tv_header_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
+            android:layout_gravity="center_horizontal"
             android:textColor="@color/colorPrimary"
             android:textSize="@dimen/banner_text_size"
-            android:text="@string/details" />
-    </LinearLayout>
+            android:text="@string/details"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="@dimen/y30" />
+    </RelativeLayout>
 
-    <LinearLayout
+    <RelativeLayout
         android:id="@+id/btn_right"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:layout_alignParentEnd="true"
-        android:layout_marginEnd="@dimen/tv_navigation_margin"
-        android:orientation="vertical">
+        android:layout_marginEnd="@dimen/tv_navigation_margin">
 
         <ImageView
             android:id="@+id/iv_right"
-            android:layout_width="30dp"
-            android:layout_height="match_parent"
+            android:layout_width="@dimen/head_banner_image_size"
+            android:layout_height="@dimen/head_banner_image_size"
             android:src="@drawable/vector_drawable_comment"
             android:tint="@color/colorPrimary"
-            android:layout_margin="@dimen/tv_navigation_margin" />
-    </LinearLayout>
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="@dimen/y30" />
+    </RelativeLayout>
 </RelativeLayout>
