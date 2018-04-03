@@ -1,7 +1,6 @@
 package com.deli.newsdemo.ui.home;
 
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.View;
 
@@ -10,6 +9,7 @@ import com.deli.newsdemo.adapter.ViewPagerFragmentAdapter;
 import com.deli.newsdemo.mvpframe.base.BaseFrameFragment;
 import com.deli.newsdemo.ui.home.type.NewsTypeFragment;
 import com.deli.newsdemo.util.ViewPagerSpeedUtils;
+import com.deli.newsdemo.widget.button.OnDoubleClickListener;
 import com.deli.newsdemo.widget.header.HeadBanner;
 import com.deli.newsdemo.widget.tablayout.TabLayout;
 import com.deli.newsdemo.widget.tablayout.ViewPager;
@@ -42,7 +42,7 @@ public class HomeFragment extends BaseFrameFragment<HomePresenter, HomeModel>
 
     private int oldPosition = 0;
 
-    private List<Fragment> mFragments;
+    private List<NewsTypeFragment> mFragments;
 
     private ViewPagerFragmentAdapter mViewPagerFragmentAdapter;
 
@@ -56,6 +56,21 @@ public class HomeFragment extends BaseFrameFragment<HomePresenter, HomeModel>
     @Override
     public void initData() {
         super.initData();
+    }
+
+    @Override
+    public void initListener() {
+        super.initListener();
+        //headbanner双击时内容回滚至顶部
+        mHeadBanner.setOnTouchListener(new OnDoubleClickListener(new OnDoubleClickListener.DoubleClickCallback() {
+            @Override
+            public void onDoubleClick() {
+                if (mFragments != null) {
+                    mFragments.get(vp_home.getCurrentItem()).backToTop();
+                }
+
+            }
+        }));
     }
 
     @Override

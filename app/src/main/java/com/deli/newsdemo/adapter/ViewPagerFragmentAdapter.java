@@ -4,6 +4,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 
+import com.deli.newsdemo.ui.home.type.NewsTypeFragment;
 import com.deli.newsdemo.widget.tablayout.FragmentPagerAdapter;
 
 import java.util.List;
@@ -13,10 +14,10 @@ import java.util.List;
  */
 
 public class ViewPagerFragmentAdapter extends FragmentPagerAdapter {
-    List<Fragment> mFragments;
+    List<NewsTypeFragment> mFragments;
     private String[] titles = {"页面1", "页面2", "页面3", "页面4", "页面5", "页面6", "页面7", "页面8", "页面9"};
 
-    public ViewPagerFragmentAdapter(FragmentManager fm, List<Fragment> mFragments) {
+    public ViewPagerFragmentAdapter(FragmentManager fm, List<NewsTypeFragment> mFragments) {
         super(fm);
         this.mFragments = mFragments;
     }
