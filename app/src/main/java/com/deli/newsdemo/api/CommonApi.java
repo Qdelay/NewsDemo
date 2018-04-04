@@ -13,6 +13,11 @@ import rx.Observable;
 
 public interface CommonApi {
 
+    /**
+     * 获取头条新闻
+     *
+     * @return NewsHeadlineEntity
+     */
     @GET("T1348647853363/0-40.html")
     Observable<NewsHeadlineEntity> getHeadlineNews();
 
