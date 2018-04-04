@@ -105,13 +105,18 @@ public class NewsTypeFragment extends BaseFrameFragment<NewsTypePresenter, NewsT
             handler.postDelayed(this, 500);
         } else {
             Log.d(TAG, "setUserVisibleHint: unvisible");
-            if (this.isVisible()) {
-                data.clear();
-                adapter.notifyDataSetChanged();
-                setLoadingVisible(true);
-            }
             handler.removeCallbacksAndMessages(null);
         }
+    }
+
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        data.clear();
+        adapter.notifyDataSetChanged();
+        setLoadingVisible(true);
+
     }
 
     @Override
