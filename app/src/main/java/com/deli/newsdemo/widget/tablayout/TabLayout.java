@@ -2128,9 +2128,9 @@ public class TabLayout extends HorizontalScrollView {
 //                canvas.drawCircle(mIndicatorLeft+40, 40, mSelectedIndicatorHeight+10, mSelectedIndicatorPaint);
                 //自定义三角形
                 Path path = new Path();
-                path.moveTo((mIndicatorLeft + mIndicatorRight) / 2, getHeight() - mSelectedIndicatorHeight - 10);
-                path.lineTo((mIndicatorLeft + mIndicatorRight) / 2 - mSelectedIndicatorHeight - 10, getHeight());
-                path.lineTo((mIndicatorLeft + mIndicatorRight) / 2 + mSelectedIndicatorHeight + 10, getHeight());
+                path.moveTo((mIndicatorLeft + mIndicatorRight) / 2, getHeight() - mSelectedIndicatorHeight - 7);
+                path.lineTo((mIndicatorLeft + mIndicatorRight) / 2 - mSelectedIndicatorHeight - 7, getHeight());
+                path.lineTo((mIndicatorLeft + mIndicatorRight) / 2 + mSelectedIndicatorHeight + 7, getHeight());
                 path.close();
                 canvas.drawPath(path, mSelectedIndicatorPaint);
                 //自定义矩形、条形（默认）

@@ -41,6 +41,7 @@ public class NewsTypeFragment extends BaseFrameFragment<NewsTypePresenter, NewsT
     private List<NewsHeadlineEntity.T1348647853363Bean> data = new ArrayList<>();
 
     private Handler handler = new Handler();
+    private boolean isUserVisible = false;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -99,7 +100,8 @@ public class NewsTypeFragment extends BaseFrameFragment<NewsTypePresenter, NewsT
     @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
-        if (isVisibleToUser) {
+        isUserVisible = isVisibleToUser;
+        if (isUserVisible) {
             Log.d(TAG, "setUserVisibleHint: visible");
             handler = new Handler();
             handler.postDelayed(this, 500);
@@ -109,14 +111,14 @@ public class NewsTypeFragment extends BaseFrameFragment<NewsTypePresenter, NewsT
         }
     }
 
-
     @Override
     public void onStop() {
         super.onStop();
-        data.clear();
-        adapter.notifyDataSetChanged();
-        setLoadingVisible(true);
-
+        if (!isUserVisible) {
+            data.clear();
+            adapter.notifyDataSetChanged();
+            setLoadingVisible(true);
+        }
     }
 
     @Override
