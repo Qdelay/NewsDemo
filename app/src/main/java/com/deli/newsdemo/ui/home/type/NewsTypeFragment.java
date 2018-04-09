@@ -18,10 +18,10 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.Unbinder;
 
 /**
  * Created by 01369557 on 2018/1/27.
+ * 首页新闻Fragment
  */
 
 public class NewsTypeFragment extends BaseFrameFragment<NewsTypePresenter, NewsTypeModel>
@@ -32,9 +32,6 @@ public class NewsTypeFragment extends BaseFrameFragment<NewsTypePresenter, NewsT
     RecyclerView mRcNews;
     @BindView(R.id.rl_loading)
     RelativeLayout mRlLoding;
-
-
-    private Unbinder unbinder;
 
     private NewsRcAdapter adapter;
 
@@ -47,18 +44,14 @@ public class NewsTypeFragment extends BaseFrameFragment<NewsTypePresenter, NewsT
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.fragment_news_type);
-        unbinder = ButterKnife.bind(this, getContentView());
+        ButterKnife.bind(this, getContentView());
+        //防止反复创建adapter
         adapter = new NewsRcAdapter(getActivity(), data);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         mRcNews.setLayoutManager(layoutManager);
         mRcNews.setAdapter(adapter);
         Log.d(TAG, "onCreate: ");
-    }
-
-    @Override
-    public void initData() {
-        super.initData();
     }
 
     @Override
