@@ -18,7 +18,7 @@ public interface CommonApi {
      *
      * @return NewsHeadlineEntity
      */
-    @GET("T1348647853363/0-40.html")
+    @GET("T1348647853363/0-20.html")
     Observable<NewsHeadlineEntity> getHeadlineNews();
 
 }

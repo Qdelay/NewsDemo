@@ -2,6 +2,8 @@ package com.deli.newsdemo.ui.home.type;
 
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.annotation.NonNull;
+import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -12,6 +14,12 @@ import com.deli.newsdemo.R;
 import com.deli.newsdemo.adapter.NewsRcAdapter;
 import com.deli.newsdemo.entity.NewsHeadlineEntity;
 import com.deli.newsdemo.mvpframe.base.BaseFrameFragment;
+import com.scwang.smartrefresh.layout.SmartRefreshLayout;
+import com.scwang.smartrefresh.layout.api.RefreshLayout;
+import com.scwang.smartrefresh.layout.footer.ClassicsFooter;
+import com.scwang.smartrefresh.layout.header.ClassicsHeader;
+import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener;
+import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,10 +36,13 @@ public class NewsTypeFragment extends BaseFrameFragment<NewsTypePresenter, NewsT
         implements NewsTypeContract.View, Runnable {
     public static final String TAG = "NewsTypeFragment";
     public static final int INT_0 = 0;
+    private int mPage = 1;
     @BindView(R.id.rc_news)
     RecyclerView mRcNews;
     @BindView(R.id.rl_loading)
     RelativeLayout mRlLoding;
+    @BindView(R.id.refresh)
+    SmartRefreshLayout mRefreshLayout;
 
     private NewsRcAdapter adapter;
 
@@ -49,9 +60,31 @@ public class NewsTypeFragment extends BaseFrameFragment<NewsTypePresenter, NewsT
         adapter = new NewsRcAdapter(getActivity(), data);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+        mRcNews.addItemDecoration(new DividerItemDecoration(getActivity(), LinearLayoutManager.VERTICAL));
         mRcNews.setLayoutManager(layoutManager);
         mRcNews.setAdapter(adapter);
+        initRefreshLayout();
         Log.d(TAG, "onCreate: ");
+    }
+
+    private void initRefreshLayout() {
+        //设置 Header 为 MaterialHeader
+        mRefreshLayout.setRefreshHeader(new ClassicsHeader(getActivity()));
+        //设置 Footer 为 经典样式
+        mRefreshLayout.setRefreshFooter(new ClassicsFooter(getActivity()));
+        //设置监听
+        mRefreshLayout.setOnRefreshListener(new OnRefreshListener() {
+            @Override
+            public void onRefresh(@NonNull RefreshLayout refreshLayout) {
+                mPresenter.getNews();
+            }
+        });
+        mRefreshLayout.setOnLoadMoreListener(new OnLoadMoreListener() {
+            @Override
+            public void onLoadMore(@NonNull RefreshLayout refreshLayout) {
+
+            }
+        });
     }
 
     @Override
@@ -73,6 +106,7 @@ public class NewsTypeFragment extends BaseFrameFragment<NewsTypePresenter, NewsT
         data.clear();
         data.addAll(bean);
         adapter.notifyDataSetChanged();
+        mRefreshLayout.finishRefresh();
         setLoadingVisible(false);
     }
 

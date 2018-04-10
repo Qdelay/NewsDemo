@@ -5,8 +5,10 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.deli.newsdemo.R;
 import com.deli.newsdemo.entity.NewsHeadlineEntity;
 
@@ -38,6 +40,10 @@ public class NewsRcAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
             NewsHolder newsHolder = (NewsHolder) holder;
             NewsHeadlineEntity.T1348647853363Bean item = (NewsHeadlineEntity.T1348647853363Bean) mData.get(position);
             newsHolder.newsTitle.setText(item.getTitle());
+            newsHolder.newsTips.setText(item.getSource());
+            Glide.with(mContext)
+                    .load(item.getImgsrc())
+                    .into(newsHolder.mImageView);
         }
     }
 
@@ -48,10 +54,14 @@ public class NewsRcAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 
     class NewsHolder extends RecyclerView.ViewHolder {
         TextView newsTitle;
+        TextView newsTips;
+        ImageView mImageView;
 
         public NewsHolder(View itemView) {
             super(itemView);
             newsTitle = itemView.findViewById(R.id.news_title);
+            newsTips = itemView.findViewById(R.id.tips);
+            mImageView = itemView.findViewById(R.id.news_img);
         }
     }
 
