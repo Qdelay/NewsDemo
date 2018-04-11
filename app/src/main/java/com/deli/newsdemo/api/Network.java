@@ -2,9 +2,13 @@ package com.deli.newsdemo.api;
 
 import com.deli.newsdemo.global.Constants;
 
+import java.io.IOException;
 import java.util.concurrent.TimeUnit;
 
+import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
@@ -22,7 +26,9 @@ public class Network {
 
     private volatile static Network singleton;
 
-    public static CommonApi mCommonApi;
+    public static NetEaseCommonApi mNetEaseCommonApi;
+
+    public static DouBanCommonApi mDouBanCommonApi;
 
     private static Retrofit retrofit;
 
@@ -41,13 +47,17 @@ public class Network {
         return singleton;
     }
 
-    public CommonApi getResultApi() {
-        return mCommonApi == null ? configRetrofit(CommonApi.class) : mCommonApi;
+    public NetEaseCommonApi getNetEaseResultApi() {
+        return mNetEaseCommonApi == null ? configRetrofit(NetEaseCommonApi.class, Constants.NETEASE_API_BASE_URL) : mNetEaseCommonApi;
     }
 
-    private <T> T configRetrofit(Class<T> service) {
+    public DouBanCommonApi getDouBanResultApi() {
+        return mDouBanCommonApi == null ? configRetrofit(DouBanCommonApi.class, Constants.DOUBAN_API_BASE_URL) : mDouBanCommonApi;
+    }
+
+    private <T> T configRetrofit(Class<T> service, String baseUrl) {
         retrofit = new Retrofit.Builder()
-                .baseUrl(Constants.API_BASE_URL)
+                .baseUrl(baseUrl)
                 .client(configClient())
                 .addConverterFactory(GsonConverterFactory.create())
                 .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
@@ -58,8 +68,20 @@ public class Network {
     private OkHttpClient configClient() {
         OkHttpClient.Builder okHttpClient = new OkHttpClient.Builder()
                 .connectTimeout(DEFAULT_TIMEOUT, TimeUnit.SECONDS);
+        okHttpClient.addInterceptor(new Interceptor() {
+            @Override
+            public Response intercept(Chain chain) throws IOException {
+                Request newRequest = chain.request().newBuilder()
+                        .removeHeader("User-Agent")
+                        .addHeader("User-Agent", "Mozilla/5.0 (Windows; U; Windows NT 5.1; en-US; rv:0.9.4)")
+                        .build();
+                return chain.proceed(newRequest);
+            }
+        });
         return okHttpClient.build();
     }
+
+
 //okhttp拦截器
 //    private Interceptor mErrorInterceptor = new  Interceptor() {
 //        @Override

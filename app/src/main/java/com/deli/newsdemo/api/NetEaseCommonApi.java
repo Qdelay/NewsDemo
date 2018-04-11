@@ -3,6 +3,7 @@ package com.deli.newsdemo.api;
 import com.deli.newsdemo.entity.NewsHeadlineEntity;
 
 import retrofit2.http.GET;
+import retrofit2.http.Path;
 import rx.Observable;
 
 /**
@@ -11,14 +12,14 @@ import rx.Observable;
  * @describe :
  */
 
-public interface CommonApi {
+public interface NetEaseCommonApi {
 
     /**
      * 获取头条新闻
      *
      * @return NewsHeadlineEntity
      */
-    @GET("T1348647853363/0-20.html")
-    Observable<NewsHeadlineEntity> getHeadlineNews();
+    @GET("T1348647853363/{startPage}-{endPage}.html")
+    Observable<NewsHeadlineEntity> getHeadlineNews(@Path("startPage") int starPage, @Path("endPage") int endPage);
 
 }

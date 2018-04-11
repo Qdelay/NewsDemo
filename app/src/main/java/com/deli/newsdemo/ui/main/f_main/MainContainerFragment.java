@@ -29,7 +29,7 @@ public class MainContainerFragment extends BaseFrameFragment<MainContainerPresen
 
     private VideoFragment mVideoFragment;
 
-    private int oldPosition = Constants.pageNum.Home;
+    private int oldPosition = Constants.PageNum.Home;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -69,15 +69,15 @@ public class MainContainerFragment extends BaseFrameFragment<MainContainerPresen
             return;
         }
         switch (position) {
-            case Constants.pageNum.Home:
+            case Constants.PageNum.Home:
                 toFragemnt(mHomeFragment);
                 setCurrentFragment(mHomeFragment);
                 break;
-            case Constants.pageNum.Mine:
+            case Constants.PageNum.Mine:
                 toFragemnt(mMineFragment);
                 setCurrentFragment(mMineFragment);
                 break;
-            case Constants.pageNum.Video:
+            case Constants.PageNum.Video:
                 toFragemnt(mVideoFragment);
                 setCurrentFragment(mVideoFragment);
                 break;

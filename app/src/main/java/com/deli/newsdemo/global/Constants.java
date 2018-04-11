@@ -7,9 +7,10 @@ package com.deli.newsdemo.global;
  */
 
 public class Constants {
-    public static final String API_BASE_URL = "http://c.m.163.com/nc/article/headline/";
+    public static final String NETEASE_API_BASE_URL = "http://c.m.163.com/nc/article/headline/";
+    public static final String DOUBAN_API_BASE_URL = "https://api.douban.com/v2";
 
-    public interface pageNum {
+    public interface PageNum {
         int Home = 0;
         int Video = 1;
         int Mine = 2;

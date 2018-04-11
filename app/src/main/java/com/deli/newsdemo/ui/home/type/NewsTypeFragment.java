@@ -76,13 +76,13 @@ public class NewsTypeFragment extends BaseFrameFragment<NewsTypePresenter, NewsT
         mRefreshLayout.setOnRefreshListener(new OnRefreshListener() {
             @Override
             public void onRefresh(@NonNull RefreshLayout refreshLayout) {
-                mPresenter.getNews();
+                mPresenter.getNews(INT_0);
             }
         });
         mRefreshLayout.setOnLoadMoreListener(new OnLoadMoreListener() {
             @Override
             public void onLoadMore(@NonNull RefreshLayout refreshLayout) {
-
+                mPresenter.getNews(mPage);
             }
         });
     }
@@ -101,13 +101,25 @@ public class NewsTypeFragment extends BaseFrameFragment<NewsTypePresenter, NewsT
     }
 
     @Override
-    public void refreshData(List<NewsHeadlineEntity.T1348647853363Bean> bean) {
+    public void clearAndRefreshData(List<NewsHeadlineEntity.T1348647853363Bean> bean) {
         Log.d(TAG, "refreshData: " + bean.size());
         data.clear();
         data.addAll(bean);
-        adapter.notifyDataSetChanged();
         mRefreshLayout.finishRefresh();
         setLoadingVisible(false);
+        adapter.notifyDataSetChanged();
+        mPage = 1;
+    }
+
+    @Override
+    public void addAndRefreshData(List<NewsHeadlineEntity.T1348647853363Bean> bean) {
+        if (!bean.isEmpty()) {
+            data.addAll(bean);
+            adapter.notifyDataSetChanged();
+            mPage += 1;
+        }
+        mRefreshLayout.finishLoadMore();
+
     }
 
     @Override
@@ -151,6 +163,6 @@ public class NewsTypeFragment extends BaseFrameFragment<NewsTypePresenter, NewsT
     @Override
     public void run() {
         Log.d(TAG, "setUserVisibleHint: ");
-        mPresenter.getNews();
+        mPresenter.getNews(INT_0);
     }
 }

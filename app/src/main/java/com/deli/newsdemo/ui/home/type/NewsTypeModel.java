@@ -14,10 +14,10 @@ import rx.Observable;
 
 public class NewsTypeModel implements NewsTypeContract.Model {
     @Override
-    public Observable<NewsHeadlineEntity> getNews() {
+    public Observable<NewsHeadlineEntity> getNews(int startPage, int endPage) {
         return Network.getInstance()
-                .getResultApi()
-                .getHeadlineNews()
+                .getNetEaseResultApi()
+                .getHeadlineNews(startPage, endPage)
                 .compose(RxSchedulerHelper.<NewsHeadlineEntity>io_main());
     }
 }

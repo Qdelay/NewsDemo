@@ -23,15 +23,20 @@ public interface NewsTypeContract {
          *
          * @return
          */
-        Observable<NewsHeadlineEntity> getNews();
+        Observable<NewsHeadlineEntity> getNews(int startPage, int endPage);
 
     }
     interface View extends BaseView {
         /**
-         * 更新新闻列表
+         * 清除数据并更新新闻列表
          * @param data
          */
-        void refreshData(List<NewsHeadlineEntity.T1348647853363Bean> data);
+        void clearAndRefreshData(List<NewsHeadlineEntity.T1348647853363Bean> data);
+
+        /**
+         * 更新数据并添加数据
+         */
+        void addAndRefreshData(List<NewsHeadlineEntity.T1348647853363Bean> data);
 
         /**
          * 设置加载进度条
@@ -50,7 +55,7 @@ public interface NewsTypeContract {
         /**
          * 获取新闻数据
          */
-        public abstract void getNews();
+        public abstract void getNews(int startPage);
 
         /**
          * 清空网络请求
