@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.KeyEvent;
+import android.view.View;
 
 import com.airbnb.lottie.LottieAnimationView;
 import com.deli.newsdemo.R;
@@ -17,11 +18,12 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 
-public class MainActivity extends BaseFrameActivity<MainPresenter, MainModel> implements MainContract.View, FragmentMssageListener {
+public class MainActivity extends BaseFrameActivity<MainPresenter, MainModel> implements MainContract.View, FragmentMessageCallback {
     @BindView(R.id.loading)
     LottieAnimationView loading;
 
     private static final String TAG = "MainActivity";
+    public static final String ADD_NEWS_PAGE = "add_news_page";
     private MainContainerFragment mMainFragment;
     private long lastTime = 0;
     private Unbinder unbinder;
@@ -32,6 +34,16 @@ public class MainActivity extends BaseFrameActivity<MainPresenter, MainModel> im
             case MineFragment.TAG:
                 break;
             case NewsDetailsFragment.TAG:
+                break;
+            case NewsDetailsFragment.NEW_DETAILS_RIGHT_CALLBACK:
+                getLoading().setVisibility(View.GONE);
+                backToFragment();
+                break;
+            case ADD_NEWS_PAGE:
+                NewsDetailsFragment mNewsDetailsFragment = new NewsDetailsFragment();
+                toFragment(mNewsDetailsFragment);
+                setCurrFragment(mNewsDetailsFragment);
+                getLoading().setVisibility(View.VISIBLE);
                 break;
             default:
                 break;
@@ -52,8 +64,6 @@ public class MainActivity extends BaseFrameActivity<MainPresenter, MainModel> im
         setFragmentId(R.id.container);
         DisplayMetrics dm = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(dm);
-        System.out.println("width-display :" + dm.widthPixels);
-        System.out.println("heigth-display :" + dm.heightPixels);
     }
 
     @Override

@@ -6,14 +6,16 @@ import android.widget.Button;
 
 import com.deli.newsdemo.R;
 import com.deli.newsdemo.mvpframe.base.BaseFrameFragment;
+import com.deli.newsdemo.ui.main.FragmentMessageCallback;
 import com.deli.newsdemo.ui.main.MainActivity;
-import com.deli.newsdemo.ui.newsdetails.NewsDetailsFragment;
 import com.deli.newsdemo.widget.button.NoDoubleClickListener;
 import com.deli.newsdemo.widget.header.HeadBanner;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
+
+import static com.deli.newsdemo.ui.main.MainActivity.ADD_NEWS_PAGE;
 
 /**
  * @auther : qiudeli QQ:364978880
@@ -30,7 +32,7 @@ public class MineFragment extends BaseFrameFragment<MinePresenter, MineModel>
     HeadBanner mHeadBanner;
 
     public static final String TAG = "MineFragment";
-    private MainActivity mCallback;
+    private FragmentMessageCallback mCallback;
     private Unbinder unbinder;
 
     @Override
@@ -54,9 +56,7 @@ public class MineFragment extends BaseFrameFragment<MinePresenter, MineModel>
             @Override
             protected void onNoDoubleClick(View v) {
                 mCallback = (MainActivity) getActivity();
-                NewsDetailsFragment mNewsDetailsFragment = new NewsDetailsFragment();
-                mCallback.toFragment(mNewsDetailsFragment);
-                mCallback.setCurrFragment(mNewsDetailsFragment);
+                mCallback.onMessage(null, ADD_NEWS_PAGE);
             }
         });
         mHeadBanner.getBtn_left().setVisibility(View.GONE);
